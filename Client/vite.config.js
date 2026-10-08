@@ -10,4 +10,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Dev only: forward /api to the backend, so no .env file is needed.
+  server: {
+    proxy: {
+      "/api": "http://localhost:5000",
+    },
+  },
 })

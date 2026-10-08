@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL || "/api",
   withCredentials: true,
 });
 
-// A 401 on an admin page (except the login call) → back to login.
 api.interceptors.response.use(
   (res) => res,
   (err) => {
