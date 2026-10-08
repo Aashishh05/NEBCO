@@ -1,7 +1,23 @@
-export const authRepository = {
-  findByEmail: async (email) => User.findOne({ email }).select('+password'),
-  findByIdWithRole: async (id) => User.findById(id).populate('role'),
-  findByIdWithPassword: async (id) => User.findById(id).select('+password'),
-  updateLastLogin: async (id) => User.findByIdAndUpdate(id, { lastLoginAt: new Date() }),
-  save: async (user) => user.save()
+import User from "../model/userModel.js";
+
+export const findByEmail = async (email) => {
+  return await User.findOne({ email }).select("+password");
+};
+
+export const findByIdWithRole = async (id) => {
+  return await User.findById(id).populate("role");
+};
+
+export const findByIdWithPassword = async (id) => {
+  return await User.findById(id).select("+password");
+};
+
+export const updateLastLogin = async (id) => {
+  return await User.findByIdAndUpdate(id, {
+    lastLoginAt: new Date(),
+  });
+};
+
+export const saveUser = async (user) => {
+  return await user.save();
 };
