@@ -5,8 +5,8 @@ const message = (err, fallback) => err.response?.data?.message || fallback;
 
 export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, { rejectWithValue }) => {
   try {
-    const { data } = await authApi.me();
-    return data.data;
+    const payload = await authApi.me();
+    return payload.data;
   } catch (err) {
     return rejectWithValue(message(err, "Not authenticated"));
   }
