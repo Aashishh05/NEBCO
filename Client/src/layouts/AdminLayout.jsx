@@ -1,4 +1,4 @@
-export default function AdminLayout() {
+const AdminLayout = () => {
   return (
     <div className="min-h-screen bg-muted">
       <header className="flex items-center justify-between border-b border-border bg-white px-6 py-4">
@@ -7,4 +7,6 @@ export default function AdminLayout() {
       </header>
     </div>
   );
-}
+};
+
+export default AdminLayout;

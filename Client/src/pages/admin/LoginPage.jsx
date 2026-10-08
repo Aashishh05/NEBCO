@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function LoginPage() {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,4 +49,6 @@ export default function LoginPage() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;

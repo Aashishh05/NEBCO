@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import PageLoader from "@/components/loaders/PageLoader";
 
 // Must be logged in.
-export default function ProtectedRoute({ children }) {
+const ProtectedRoute = ({ children }) => {
   const { user, status } = useSelector((state) => state.auth);
   const location = useLocation();
 
@@ -11,4 +11,6 @@ export default function ProtectedRoute({ children }) {
   if (!user) return <Navigate to="/admin/login" state={{ from: location }} replace />;
 
   return children;
-}
+};
+
+export default ProtectedRoute;

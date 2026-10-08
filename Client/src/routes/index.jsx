@@ -6,7 +6,7 @@ const LoginPage = lazy(() => import("@/pages/admin/LoginPage.jsx"));
 const HomePage = lazy(() => import("@/pages/public/Home.jsx"));
 const AdminLayout = lazy(() => import("@/layouts/AdminLayout.jsx"));
 
-export default function AppRoutes() {
+const AppRoutes = () => {
   return (
     <Suspense
       fallback={
@@ -33,4 +33,6 @@ export default function AppRoutes() {
       </Routes>
     </Suspense>
   );
-}
+};
+
+export default AppRoutes;

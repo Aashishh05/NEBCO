@@ -1,7 +1,7 @@
 import usePermission from "@/hooks/usePermission";
 
 // Must hold a permission, otherwise a readable 403 block.
-export default function AdminRoute({ module, action, children }) {
+const AdminRoute = ({ module, action, children }) => {
   const allowed = usePermission(module, action);
 
   if (!allowed) {
@@ -14,4 +14,6 @@ export default function AdminRoute({ module, action, children }) {
   }
 
   return children;
-}
+};
+
+export default AdminRoute;
