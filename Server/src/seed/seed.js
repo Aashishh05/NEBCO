@@ -9,20 +9,11 @@ import { clearCache } from "../utils/cache.js";
 import ROLES from "../constants/rolesConstant.js";
 import MODULES from "../constants/modulesConstant.js";
 import { ACTIONS, perm } from "../constants/permissionsConstant.js";
-import Service from "../modules/service/model/serviceModel.js";
 import Contact from "../modules/contact/model/contactModel.js";
 import Project from "../modules/project/model/projectModel.js";
 import TeamMember from "../modules/team/model/teamModel.js";
 import Testimonial from "../modules/testimonial/model/testimonialModel.js";
-import Page from "../modules/page/model/pageModel.js";
-import {
-  SERVICES,
-  CONTACT,
-  PROJECTS,
-  TEAM,
-  TESTIMONIALS,
-  PAGES,
-} from "./nebcoSeed.js";
+import { CONTACT, PROJECTS, TEAM, TESTIMONIALS } from "./nebcoSeed.js";
 
 const all = Object.fromEntries(MODULES.map((module) => [module, ACTIONS]));
 
@@ -43,8 +34,6 @@ const ROLE_LIST = [
     permissions: perm({
       dashboard: ACTIONS,
       projects: ACTIONS,
-      services: ["read", "update"],
-      pages: ["read", "update"],
       enquiries: ACTIONS,
       appointments: ACTIONS,
       testimonials: ACTIONS,
@@ -65,8 +54,6 @@ const ROLE_LIST = [
     permissions: perm({
       dashboard: ["read"],
       projects: ["read", "create", "update"],
-      services: ["read"],
-      pages: ["read", "update"],
       testimonials: ["read", "create", "update"],
       team: ["read", "create", "update"],
       media: ["read", "create", "delete"],
@@ -82,7 +69,6 @@ const ROLE_LIST = [
       enquiries: ["read", "update"],
       appointments: ["read", "update"],
       projects: ["read"],
-      services: ["read"],
     }),
   },
   {
@@ -130,14 +116,6 @@ const seed = async () => {
 
   logger.info(`Seed done: ${user.email} (super-admin)`);
 
-  for (const item of SERVICES) {
-    await Service.findOneAndUpdate({ slug: item.slug }, item, {
-      upsert: true,
-      new: true,
-    });
-  }
-  logger.info(`Services seeded: ${SERVICES.length}`);
-
   await Contact.findOneAndUpdate({}, CONTACT, { upsert: true, new: true });
   logger.info("Contact seeded");
 
@@ -156,13 +134,8 @@ const seed = async () => {
   }
   logger.info(`Testimonials seeded: ${TESTIMONIALS.length}`);
 
-  for (const item of PAGES) {
-    await Page.findOneAndUpdate({ key: item.key }, item, { upsert: true, new: true });
-  }
-  logger.info(`Page blocks seeded: ${PAGES.length}`);
-
   // Dropped data may still be cached in Redis, refresh everything.
-  for (const name of ["services", "contact", "projects", "team", "testimonials", "pages"]) {
+  for (const name of ["contact", "projects", "team", "testimonials"]) {
     await clearCache(name);
   }
   logger.info("Cache cleared");

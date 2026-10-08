@@ -2,16 +2,14 @@
 const MODULES = [
   "dashboard",
   "projects",
-  "services",
-  "pages",
-  "enquiries",
-  "appointments",
   "testimonials",
   "team",
   "media",
   "users",
   "roles",
   "permissions",
+  "enquiries",
+  "appointments",
   "audit",
   "settings",
 ];
