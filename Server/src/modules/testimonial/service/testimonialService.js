@@ -1,0 +1,68 @@
+import {
+  findPublished,
+  findAll,
+  findById,
+  createTestimonial,
+  saveTestimonial,
+  removeTestimonial,
+} from "../repository/testimonialRepository.js";
+import { clearCache } from "../../../utils/cache.js";
+import { ApiError } from "../../../utils/ApiError.js";
+
+const publicTestimonial = (testimonial) => {
+  return {
+    id: testimonial._id,
+    client: testimonial.client,
+    role: testimonial.role,
+    quote: testimonial.quote,
+    rating: testimonial.rating,
+    avatar: testimonial.avatar,
+  };
+};
+
+const invalidate = () => clearCache("testimonials");
+
+export const listPublished = async () => {
+  const testimonials = await findPublished();
+
+  return testimonials.map(publicTestimonial);
+};
+
+export const listAdmin = async () => {
+  const testimonials = await findAll();
+
+  return testimonials.map((testimonial) => ({
+    ...publicTestimonial(testimonial),
+    order: testimonial.order,
+    isPublished: testimonial.isPublished,
+  }));
+};
+
+export const create = async (data) => {
+  const testimonial = await createTestimonial(data);
+  await invalidate();
+
+  return publicTestimonial(testimonial);
+};
+
+export const update = async (id, data) => {
+  const testimonial = await findById(id);
+  if (!testimonial) throw new ApiError(404, "Testimonial not found");
+
+  for (const [field, value] of Object.entries(data)) {
+    if (field !== "id") testimonial[field] = value;
+  }
+
+  const saved = await saveTestimonial(testimonial);
+  await invalidate();
+
+  return publicTestimonial(saved);
+};
+
+export const remove = async (id) => {
+  const testimonial = await findById(id);
+  if (!testimonial) throw new ApiError(404, "Testimonial not found");
+
+  await removeTestimonial(id);
+  await invalidate();
+};

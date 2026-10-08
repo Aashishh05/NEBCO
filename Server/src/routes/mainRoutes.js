@@ -10,6 +10,10 @@ import permissionRoute from "../modules/permission/route/permissionRoute.js";
 import auditRoute from "../modules/audit/route/auditRoute.js";
 import serviceRoute from "../modules/service/route/serviceRoute.js";
 import contactRoute from "../modules/contact/route/contactRoute.js";
+import projectRoute from "../modules/project/route/projectRoute.js";
+import teamRoute from "../modules/team/route/teamRoute.js";
+import testimonialRoute from "../modules/testimonial/route/testimonialRoute.js";
+import pageRoute from "../modules/page/route/pageRoute.js";
 
 const router = Router();
 
@@ -20,6 +24,10 @@ router.use("/permissions", permissionRoute);
 router.use("/audit", auditRoute);
 router.use("/services", serviceRoute);
 router.use("/contact", contactRoute);
+router.use("/projects", projectRoute);
+router.use("/team", teamRoute);
+router.use("/testimonials", testimonialRoute);
+router.use("/pages", pageRoute);
 
 router.get(
   "/health",

@@ -5,12 +5,24 @@ import Permission from "../modules/permission/model/permissionModel.js";
 import User from "../modules/auth/model/userModel.js";
 import { logger } from "../utils/logger.js";
 import { connectDB } from "../config/db.js";
+import { clearCache } from "../utils/cache.js";
 import ROLES from "../constants/rolesConstant.js";
 import MODULES from "../constants/modulesConstant.js";
 import { ACTIONS, perm } from "../constants/permissionsConstant.js";
 import Service from "../modules/service/model/serviceModel.js";
 import Contact from "../modules/contact/model/contactModel.js";
-import { SERVICES, CONTACT } from "./nebcoSeed.js";
+import Project from "../modules/project/model/projectModel.js";
+import TeamMember from "../modules/team/model/teamModel.js";
+import Testimonial from "../modules/testimonial/model/testimonialModel.js";
+import Page from "../modules/page/model/pageModel.js";
+import {
+  SERVICES,
+  CONTACT,
+  PROJECTS,
+  TEAM,
+  TESTIMONIALS,
+  PAGES,
+} from "./nebcoSeed.js";
 
 const all = Object.fromEntries(MODULES.map((module) => [module, ACTIONS]));
 
@@ -128,6 +140,32 @@ const seed = async () => {
 
   await Contact.findOneAndUpdate({}, CONTACT, { upsert: true, new: true });
   logger.info("Contact seeded");
+
+  for (const item of PROJECTS) {
+    await Project.findOneAndUpdate({ slug: item.slug }, item, { upsert: true, new: true });
+  }
+  logger.info(`Projects seeded: ${PROJECTS.length}`);
+
+  for (const item of TEAM) {
+    await TeamMember.findOneAndUpdate({ name: item.name }, item, { upsert: true, new: true });
+  }
+  logger.info(`Team seeded: ${TEAM.length}`);
+
+  for (const item of TESTIMONIALS) {
+    await Testimonial.findOneAndUpdate({ client: item.client }, item, { upsert: true, new: true });
+  }
+  logger.info(`Testimonials seeded: ${TESTIMONIALS.length}`);
+
+  for (const item of PAGES) {
+    await Page.findOneAndUpdate({ key: item.key }, item, { upsert: true, new: true });
+  }
+  logger.info(`Page blocks seeded: ${PAGES.length}`);
+
+  // Dropped data may still be cached in Redis, refresh everything.
+  for (const name of ["services", "contact", "projects", "team", "testimonials", "pages"]) {
+    await clearCache(name);
+  }
+  logger.info("Cache cleared");
 
   await mongoose.disconnect();
   process.exit(0);

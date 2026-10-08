@@ -146,3 +146,209 @@ export const CONTACT = {
     youtube: "",
   },
 };
+
+export const PROJECTS = [
+  {
+    title: "Sukedhara Private House",
+    slug: "sukedhara-private-house",
+    category: "residential",
+    location: "Sukedhara, Kathmandu",
+    year: "2025",
+    status: "Completed",
+    summary: "A private residence delivered from NEBCO's project portfolio.",
+    description:
+      "A private house in Sukedhara, delivered through NEBCO's managed construction scope: a coordinated site team, agreed specifications and quality checks from foundations to handover.",
+    featured: true,
+    coverImage: "",
+    gallery: [],
+  },
+  {
+    title: "Khanal Commercial Building",
+    slug: "khanal-commercial-building",
+    category: "commercial",
+    location: "Nepalgunj",
+    year: "2026",
+    status: "Concept",
+    summary: "Commercial project concept visualization in Nepalgunj.",
+    description:
+      "A commercial building concept in Nepalgunj, developed from the client's site and requirements through planning, design coordination and construction readiness.",
+    featured: true,
+    coverImage: "",
+    gallery: [],
+  },
+  {
+    title: "Hotel Yatri",
+    slug: "hotel-yatri",
+    category: "hospitality",
+    location: "Thamel, Kathmandu",
+    year: "2024",
+    status: "Planning & design",
+    summary: "Planning and design involvement for a Thamel hotel.",
+    description:
+      "Planning and design involvement for a hospitality project in Thamel: site assessment, design coordination and project brief development.",
+    featured: true,
+    coverImage: "",
+    gallery: [],
+  },
+];
+
+export const TEAM = [
+  {
+    name: "Team Member One",
+    position: "Director",
+    bio: "Leading NEBCO's construction, consulting and investments practice.",
+    photo: "",
+    socials: { facebook: "", linkedin: "", x: "", instagram: "" },
+  },
+  {
+    name: "Team Member Two",
+    position: "Project Manager",
+    bio: "Coordinates design, approvals and site execution for client projects.",
+    photo: "",
+    socials: { facebook: "", linkedin: "", x: "", instagram: "" },
+  },
+  {
+    name: "Team Member Three",
+    position: "Design Coordinator",
+    bio: "Connects architectural, structural and MEP inputs into buildable scopes.",
+    photo: "",
+    socials: { facebook: "", linkedin: "", x: "", instagram: "" },
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    client: "Sukedhara Client",
+    role: "Homeowner",
+    quote:
+      "NEBCO kept us informed at every stage and handed over exactly what was agreed.",
+    rating: 5,
+    isPublished: true,
+  },
+  {
+    client: "Nepalgunj Developer",
+    role: "Developer",
+    quote:
+      "Clear coordination across design, approvals and budget planning from the start.",
+    rating: 4,
+    isPublished: true,
+  },
+];
+
+export const PAGES = [
+  {
+    key: "hero",
+    label: "Hero",
+    data: {
+      badge: "A-Class construction company · Nepal",
+      heading: "From land to landmark.",
+      subheading:
+        "Construction, development consulting and real estate partnerships in Nepal—built on experience since 2001.",
+      ctas: [{ label: "Discuss your project" }, { label: "Explore NEBCO" }],
+    },
+  },
+  {
+    key: "credentials",
+    label: "Credentials band",
+    data: {
+      stats: [
+        { value: "20+", label: "Years of experience" },
+        { value: "2001", label: "Established" },
+        { value: "A–Class", label: "Construction company" },
+      ],
+      tagline: "Quality. Integrity. Timely.",
+      note: "3 connected businesses. One vision for your project.",
+    },
+  },
+  {
+    key: "startingPoint",
+    label: "Starting point",
+    data: {
+      heading: "Your starting point",
+      subheading: "What would you like to do?",
+      cards: [
+        { label: "Explore my land's potential", description: "Understand your options and plan a viable development.", service: "consulting" },
+        { label: "Design and build a property", description: "Bring your requirements, site and working budget together.", service: "construction" },
+        { label: "Build from existing drawings", description: "Review your plans, scope and construction requirements.", service: "construction" },
+        { label: "Explore a project partnership", description: "Connect land, capital, supply and buying interest.", service: "investments" },
+      ],
+    },
+  },
+  {
+    key: "foundation",
+    label: "Foundation",
+    data: {
+      heading: "The NEBCO foundation",
+      subheading: "Built on experience. Focused on your future.",
+      text: "Established in 2001, an A-Class construction company bringing construction, development guidance and project partnerships together.",
+      tabs: [
+        {
+          title: "Construction delivery",
+          body: "One accountable construction team. We manage the people, materials and checks within your agreed construction scope.",
+          bullets: [
+            "A managed site team and work programme",
+            "Agreed costs, specifications and recorded changes",
+            "Site supervision, quality checks and progress updates",
+          ],
+        },
+        {
+          title: "Your project, brought together",
+          body: "One lead for the agreed development coordination, with your approvals remaining central and your architect or consultant's oversight where appointed.",
+          bullets: [
+            "People & work sequence",
+            "Quality & progress checks",
+            "An agreed scope. A connected team.",
+          ],
+        },
+      ],
+    },
+  },
+  {
+    key: "overseas",
+    label: "Overseas clients",
+    data: {
+      heading: "Overseas clients",
+      subheading: "Your life is abroad. Your vision is here.",
+      text: "Build, develop or explore a project partnership in Nepal with a local team that keeps you involved.",
+      bullets: [
+        "Conversations around your time zone",
+        "Site updates and progress reviews",
+        "Written approvals for key decisions",
+      ],
+      cta: "Schedule an online call",
+    },
+  },
+  {
+    key: "schedule",
+    label: "Schedule call",
+    data: {
+      heading: "Let's talk about your next project.",
+      subheading: "A home, a development or a partnership.",
+      text: "Let's understand what you have in mind. Choose a convenient time and our team will confirm it with you.",
+      cta: "Schedule a call",
+      note: "In Nepal or overseas. We'll connect.",
+    },
+  },
+  {
+    key: "about",
+    label: "About NEBCO",
+    data: {
+      heading: "More about NEBCO",
+      text: "National Estate Builders Co. Pvt. Ltd. Established in 2001. A-Class construction company, Nepal.",
+    },
+  },
+  {
+    key: "footer",
+    label: "Footer",
+    data: {
+      tagline: "From land to landmark.",
+      columns: [
+        { heading: "Explore", links: ["About NEBCO", "Our experience", "Overseas clients", "Our approach"] },
+        { heading: "Our businesses", links: ["Construction", "Consulting", "Investments"] },
+        { heading: "Let's connect", links: ["Schedule a call"] },
+      ],
+      note: "© 2026 NEBCO. All rights reserved.",
+      privacy: "Enquiry privacy",
+    },
+  },
+];
