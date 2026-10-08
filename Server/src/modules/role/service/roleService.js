@@ -7,6 +7,10 @@ import {
   removeRole,
 } from "../repository/roleRepository.js";
 import { findIdsByRole } from "../../user/repository/userRepository.js";
+import {
+  createForRole,
+  removeByRole,
+} from "../../permission/repository/permissionRepository.js";
 import { clearAccessCache } from "../../../utils/rbacCache.js";
 import { ApiError } from "../../../utils/ApiError.js";
 
@@ -16,7 +20,6 @@ const publicRole = (role) => {
     name: role.name,
     slug: role.slug,
     description: role.description,
-    permissions: role.permissions,
     isSystem: role.isSystem,
     createdAt: role.createdAt,
   };
@@ -41,6 +44,9 @@ export const create = async (data) => {
 
   const role = await createRole(data);
 
+  // New roles start with every permission off, edited later in the Permissions screen.
+  await createForRole(role._id);
+
   return publicRole(role);
 };
 
@@ -50,7 +56,6 @@ export const update = async (id, data) => {
 
   if (data.name !== undefined) role.name = data.name;
   if (data.description !== undefined) role.description = data.description;
-  if (data.permissions !== undefined) role.permissions = data.permissions;
 
   const saved = await saveRole(role);
   await clearRoleCache(id);
@@ -72,4 +77,5 @@ export const remove = async (id) => {
   }
 
   await removeRole(id);
+  await removeByRole(id);
 };

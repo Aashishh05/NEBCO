@@ -31,12 +31,7 @@ const roleSchema = new mongoose.Schema(
       default: "",
     },
 
-    permissions: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
+    // permissions live in the Permission document, one per role
 
     isSystem: {
       type: Boolean,

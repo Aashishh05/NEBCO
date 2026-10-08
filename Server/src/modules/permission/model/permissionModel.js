@@ -1,19 +1,27 @@
 import mongoose from "mongoose";
 
+// One action inside a module: read / create / update / delete.
+const modulePermissionSchema = new mongoose.Schema({
+  read: { type: Boolean, default: false },
+  create: { type: Boolean, default: false },
+  update: { type: Boolean, default: false },
+  delete: { type: Boolean, default: false },
+});
+
+// One document per role holding the whole permission matrix.
 const permissionSchema = new mongoose.Schema(
   {
-    key: {
-      type: String,
-      required: [true, "Permission key is required"],
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+      required: [true, "Role is required"],
       unique: true,
-      lowercase: true,
-      trim: true,
     },
 
-    module: {
-      type: String,
-      required: [true, "Module is required"],
-      trim: true,
+    modules: {
+      type: Map,
+      of: modulePermissionSchema,
+      default: {},
     },
   },
   {

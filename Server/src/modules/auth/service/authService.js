@@ -7,6 +7,7 @@ import {
 } from "../repository/authRepository.js";
 
 import { ApiError } from "../../../utils/ApiError.js";
+import { getPermissionsForRole } from "../../permission/service/permissionService.js";
 import {
   getCachedAccess,
   setCachedAccess,
@@ -51,7 +52,8 @@ export const getAccess = async (id) => {
         slug: user.role.slug,
       },
 
-      permissions: user.role.permissions,
+      // permission matrix: { projects: { read: true, create: false, ... } }
+      permissions: await getPermissionsForRole(user.role._id),
     };
   }
 
