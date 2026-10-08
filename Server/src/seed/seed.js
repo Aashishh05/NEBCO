@@ -8,6 +8,9 @@ import { connectDB } from "../config/db.js";
 import ROLES from "../constants/rolesConstant.js";
 import MODULES from "../constants/modulesConstant.js";
 import { ACTIONS, perm } from "../constants/permissionsConstant.js";
+import Service from "../modules/service/model/serviceModel.js";
+import Contact from "../modules/contact/model/contactModel.js";
+import { SERVICES, CONTACT } from "./nebcoSeed.js";
 
 const all = Object.fromEntries(MODULES.map((module) => [module, ACTIONS]));
 
@@ -96,7 +99,7 @@ const seed = async () => {
     await Permission.findOneAndUpdate(
       { role: role._id },
       { modules: item.permissions },
-      { upsert: true, new: true }, // if exists update it and if not create it 
+      { upsert: true, new: true }, //(upsert) if exists update it and if not create it
     );
   }
   logger.info(`Roles and permissions seeded: ${ROLE_LIST.length}`);
@@ -114,6 +117,18 @@ const seed = async () => {
   await user.save();
 
   logger.info(`Seed done: ${user.email} (super-admin)`);
+
+  for (const item of SERVICES) {
+    await Service.findOneAndUpdate({ slug: item.slug }, item, {
+      upsert: true,
+      new: true,
+    });
+  }
+  logger.info(`Services seeded: ${SERVICES.length}`);
+
+  await Contact.findOneAndUpdate({}, CONTACT, { upsert: true, new: true });
+  logger.info("Contact seeded");
+
   await mongoose.disconnect();
   process.exit(0);
 };

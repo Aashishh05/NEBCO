@@ -8,6 +8,8 @@ import userRoute from "../modules/user/route/userRoute.js";
 import roleRoute from "../modules/role/route/roleRoute.js";
 import permissionRoute from "../modules/permission/route/permissionRoute.js";
 import auditRoute from "../modules/audit/route/auditRoute.js";
+import serviceRoute from "../modules/service/route/serviceRoute.js";
+import contactRoute from "../modules/contact/route/contactRoute.js";
 
 const router = Router();
 
@@ -16,6 +18,8 @@ router.use("/users", userRoute);
 router.use("/roles", roleRoute);
 router.use("/permissions", permissionRoute);
 router.use("/audit", auditRoute);
+router.use("/services", serviceRoute);
+router.use("/contact", contactRoute);
 
 router.get(
   "/health",
