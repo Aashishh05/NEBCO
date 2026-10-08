@@ -20,8 +20,8 @@ const teamSchema = new mongoose.Schema(
     },
 
     photo: {
-      type: String,
-      default: "",
+      publicId: { type: String, default: "" },
+      url: { type: String, default: "" },
     },
 
     socials: {

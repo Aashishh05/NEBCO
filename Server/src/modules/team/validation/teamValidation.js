@@ -1,10 +1,15 @@
 import { z } from "zod";
 
+const mediaImage = z.object({
+  publicId: z.string().optional().default(""),
+  url: z.string().optional().default(""),
+});
+
 export const createMemberSchema = z.object({
   name: z.string().min(2).max(60),
   position: z.string().max(60).optional().default(""),
   bio: z.string().max(1000).optional().default(""),
-  photo: z.string().max(500).optional().default(""),
+  photo: mediaImage.optional(),
   socials: z
     .object({
       facebook: z.string().optional(),

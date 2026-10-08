@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const mediaImageSchema = new mongoose.Schema({
+  publicId: { type: String, default: "" },
+  url: { type: String, default: "" },
+});
+
 const projectSchema = new mongoose.Schema(
   {
     title: {
@@ -44,12 +49,9 @@ const projectSchema = new mongoose.Schema(
       default: "",
     },
 
-    coverImage: {
-      type: String,
-      default: "",
-    },
+    image: mediaImageSchema,
 
-    gallery: [String],
+    gallery: [mediaImageSchema],
 
     summary: {
       type: String,

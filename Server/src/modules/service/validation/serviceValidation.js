@@ -7,6 +7,11 @@ const cardSchema = z.object({
   items: z.array(z.string()).optional().default([]),
 });
 
+const mediaImage = z.object({
+  publicId: z.string().optional().default(""),
+  url: z.string().optional().default(""),
+});
+
 export const createServiceSchema = z.object({
   navLabel: z.string().min(1).max(30),
   name: z.string().min(1).max(60),
@@ -17,7 +22,7 @@ export const createServiceSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug can only contain lowercase letters, numbers and hyphens"),
   tagline: z.string().max(200).optional().default(""),
   intro: z.string().max(1000).optional().default(""),
-  image: z.string().max(500).optional().default(""),
+  image: mediaImage.optional(),
   accentColor: z.string().max(20).optional().default("#b82026"),
   chips: z.array(z.string()).optional().default([]),
   scopeBullets: z.array(z.string()).optional().default([]),

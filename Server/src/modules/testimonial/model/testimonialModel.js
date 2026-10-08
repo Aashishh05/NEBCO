@@ -27,8 +27,8 @@ const testimonialSchema = new mongoose.Schema(
     },
 
     avatar: {
-      type: String,
-      default: "",
+      publicId: { type: String, default: "" },
+      url: { type: String, default: "" },
     },
 
     order: {

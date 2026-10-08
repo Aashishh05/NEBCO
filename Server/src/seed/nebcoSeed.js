@@ -9,6 +9,7 @@ export const SERVICES = [
       "Build with a team that connects design, budget and site execution. Whether you have a plot or approved drawings, we shape the right construction scope around your project.",
     accentColor: "#b82026",
     cta: "Explore construction",
+    image: { publicId: "", url: "" },
     chips: [
       "Design & Build",
       "Civil works & finishing",
@@ -53,6 +54,7 @@ export const SERVICES = [
       "End-to-end real estate development support, from understanding your land's potential to coordinating design, approvals, finance planning, delivery and sales or leasing support.",
     accentColor: "#aa8c56",
     cta: "Explore consulting",
+    image: { publicId: "", url: "" },
     chips: [
       "Concept, feasibility & planning",
       "Design, approvals & finance coordination",
@@ -97,6 +99,7 @@ export const SERVICES = [
       "NEBCO brings the right stakeholders together and serves as facilitator, project manager and consultant. Where appropriate, we may also invest and take equity, strengthening our commitment to the project.",
     accentColor: "#981b20",
     cta: "Explore investments",
+    image: { publicId: "", url: "" },
     chips: [
       "A platform for project partnerships",
       "Transparent stakeholder coordination",
@@ -159,7 +162,7 @@ export const PROJECTS = [
     description:
       "A private house in Sukedhara, delivered through NEBCO's managed construction scope: a coordinated site team, agreed specifications and quality checks from foundations to handover.",
     featured: true,
-    coverImage: "",
+    image: { publicId: "", url: "" },
     gallery: [],
   },
   {
@@ -173,7 +176,7 @@ export const PROJECTS = [
     description:
       "A commercial building concept in Nepalgunj, developed from the client's site and requirements through planning, design coordination and construction readiness.",
     featured: true,
-    coverImage: "",
+    image: { publicId: "", url: "" },
     gallery: [],
   },
   {
@@ -187,7 +190,7 @@ export const PROJECTS = [
     description:
       "Planning and design involvement for a hospitality project in Thamel: site assessment, design coordination and project brief development.",
     featured: true,
-    coverImage: "",
+    image: { publicId: "", url: "" },
     gallery: [],
   },
 ];
@@ -197,21 +200,21 @@ export const TEAM = [
     name: "Team Member One",
     position: "Director",
     bio: "Leading NEBCO's construction, consulting and investments practice.",
-    photo: "",
+    photo: { publicId: "", url: "" },
     socials: { facebook: "", linkedin: "", x: "", instagram: "" },
   },
   {
     name: "Team Member Two",
     position: "Project Manager",
     bio: "Coordinates design, approvals and site execution for client projects.",
-    photo: "",
+    photo: { publicId: "", url: "" },
     socials: { facebook: "", linkedin: "", x: "", instagram: "" },
   },
   {
     name: "Team Member Three",
     position: "Design Coordinator",
     bio: "Connects architectural, structural and MEP inputs into buildable scopes.",
-    photo: "",
+    photo: { publicId: "", url: "" },
     socials: { facebook: "", linkedin: "", x: "", instagram: "" },
   },
 ];
@@ -224,6 +227,7 @@ export const TESTIMONIALS = [
       "NEBCO kept us informed at every stage and handed over exactly what was agreed.",
     rating: 5,
     isPublished: true,
+    avatar: { publicId: "", url: "" },
   },
   {
     client: "Nepalgunj Developer",
@@ -232,6 +236,7 @@ export const TESTIMONIALS = [
       "Clear coordination across design, approvals and budget planning from the start.",
     rating: 4,
     isPublished: true,
+    avatar: { publicId: "", url: "" },
   },
 ];
 

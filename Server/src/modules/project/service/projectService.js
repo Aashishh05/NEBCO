@@ -22,7 +22,7 @@ const publicProject = (project) => {
     year: project.year,
     status: project.status,
     link: project.link,
-    coverImage: project.coverImage,
+    image: project.image,
     gallery: project.gallery,
     summary: project.summary,
     description: project.description,

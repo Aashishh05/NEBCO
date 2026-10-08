@@ -2,6 +2,11 @@ import { z } from "zod";
 
 const CATEGORIES = ["residential", "commercial", "hospitality"];
 
+const mediaImage = z.object({
+  publicId: z.string().optional().default(""),
+  url: z.string().optional().default(""),
+});
+
 export const createProjectSchema = z.object({
   title: z.string().min(1).max(120),
   slug: z
@@ -14,8 +19,8 @@ export const createProjectSchema = z.object({
   year: z.string().max(20).optional().default(""),
   status: z.string().max(60).optional().default(""),
   link: z.string().max(500).optional().default(""),
-  coverImage: z.string().max(500).optional().default(""),
-  gallery: z.array(z.string()).optional().default([]),
+  image: mediaImage.optional(),
+  gallery: z.array(mediaImage).optional().default([]),
   summary: z.string().max(500).optional().default(""),
   description: z.string().max(5000).optional().default(""),
   featured: z.boolean().optional().default(false),
