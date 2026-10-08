@@ -7,6 +7,10 @@ import {
 } from "../repository/authRepository.js";
 
 import { ApiError } from "../../../utils/ApiError.js";
+import {
+  getCachedAccess,
+  setCachedAccess,
+} from "../../../utils/rbacCache.js";
 
 export const login = async (email, password) => {
   const user = await findByEmail(email);
@@ -27,26 +31,33 @@ export const login = async (email, password) => {
 };
 
 export const getAccess = async (id) => {
+  const cached = await getCachedAccess(id);
+  if (cached !== undefined) return cached;
+
   const user = await findByIdWithRole(id);
 
-  if (!user || !user.isActive || !user.role) {
-    return null;
+  let access = null;
+
+  if (user && user.isActive && user.role) {
+    access = {
+      id: String(user._id),
+      name: user.name,
+      email: user.email,
+      isActive: user.isActive,
+
+      role: {
+        id: String(user.role._id),
+        name: user.role.name,
+        slug: user.role.slug,
+      },
+
+      permissions: user.role.permissions,
+    };
   }
 
-  return {
-    id: String(user._id),
-    name: user.name,
-    email: user.email,
-    isActive: user.isActive,
+  await setCachedAccess(id, access);
 
-    role: {
-      id: String(user.role._id),
-      name: user.role.name,
-      slug: user.role.slug,
-    },
-
-    permissions: user.role.permissions,
-  };
+  return access;
 };
 
 export const changePassword = async (

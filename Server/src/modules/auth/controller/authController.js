@@ -6,6 +6,7 @@ import {
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { sendSuccess } from "../../../utils/response.js";
 import { generateToken, cookieOptions } from "../../../utils/generateToken.js";
+import { record } from "../../audit/service/auditService.js";
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -13,6 +14,8 @@ export const login = asyncHandler(async (req, res) => {
   const user = await loginUser(email, password);
 
   res.cookie("token", generateToken(user.id), cookieOptions());
+
+  await record(req, "auth.login", "user", user.id, user);
 
   sendSuccess(
     res,
@@ -26,6 +29,8 @@ export const login = asyncHandler(async (req, res) => {
 
 export const logout = asyncHandler(async (req, res) => {
   res.clearCookie("token", cookieOptions());
+
+  await record(req, "auth.logout", "user", req.user?.id);
 
   sendSuccess(res, null, "Logged out");
 });
