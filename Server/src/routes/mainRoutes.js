@@ -15,6 +15,8 @@ import teamRoute from "../modules/team/route/teamRoute.js";
 import testimonialRoute from "../modules/testimonial/route/testimonialRoute.js";
 import pageRoute from "../modules/page/route/pageRoute.js";
 import mediaRoute from "../modules/media/route/mediaRoute.js";
+import enquiryRoute from "../modules/enquiry/route/enquiryRoute.js";
+import appointmentRoute from "../modules/appointment/route/appointmentRoute.js";
 
 const router = Router();
 
@@ -30,6 +32,8 @@ router.use("/team", teamRoute);
 router.use("/testimonials", testimonialRoute);
 router.use("/pages", pageRoute);
 router.use("/media", mediaRoute);
+router.use("/enquiries", enquiryRoute);
+router.use("/appointments", appointmentRoute);
 
 router.get(
   "/health",
