@@ -1,8 +1,12 @@
 const Home = () => {
   return (
     <main className="mx-auto min-h-screen max-w-[1280px] px-6 py-10">
-      <h1 className="text-3xl font-bold text-ink">NEBCO</h1>
-      <p className="mt-2 text-muted-fg">From land to landmark. Public site coming here.</p>
+      <img
+        src="/images/nebco-logo.png"
+        alt="NEBCO — From land to landmark"
+        className="h-24 w-auto max-w-full object-contain"
+      />
+      <p className="mt-4 text-muted-fg">Public site coming here.</p>
     </main>
   );
 };

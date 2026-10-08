@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 const LoginPage = lazy(() => import("@/pages/admin/LoginPage.jsx"));
 const HomePage = lazy(() => import("@/pages/public/Home.jsx"));
 const AdminLayout = lazy(() => import("@/layouts/AdminLayout.jsx"));
+const PublicLayout = lazy(() => import("@/layouts/PublicLayout.jsx"));
 
 const AppRoutes = () => {
   return (
@@ -18,8 +19,6 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/admin/login" element={<LoginPage />} />
 
-        <Route path="/" element={<HomePage />} />
-
         <Route
           path="/admin"
           element={
@@ -29,7 +28,10 @@ const AppRoutes = () => {
           }
         />
 
-        <Route path="*" element={<HomePage />} />
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<HomePage />} />
+        </Route>
       </Routes>
     </Suspense>
   );

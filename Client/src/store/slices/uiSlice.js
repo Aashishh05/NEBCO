@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Which modal is open (enquiry / appointment), opened from any page button.
-const initialState = { activeModal: null, error: null };
+const initialState = {
+  activeModal: null,
+  sidebarOpen: false,
+  mobileMenuOpen: false,
+  error: null,
+};
 
 const uiSlice = createSlice({
   name: "ui",
@@ -13,8 +17,18 @@ const uiSlice = createSlice({
     closeModal: (state) => {
       state.activeModal = null;
     },
+    toggleSidebar: (state) => {
+      state.sidebarOpen = !state.sidebarOpen;
+    },
+    openMobileMenu: (state) => {
+      state.mobileMenuOpen = true;
+    },
+    closeMobileMenu: (state) => {
+      state.mobileMenuOpen = false;
+    },
   },
 });
 
-export const { openModal, closeModal } = uiSlice.actions;
+export const { openModal, closeModal, toggleSidebar, openMobileMenu, closeMobileMenu } =
+  uiSlice.actions;
 export default uiSlice.reducer;
