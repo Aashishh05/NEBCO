@@ -3,11 +3,7 @@ import mongoose from 'mongoose';
 import Role from '../modules/role/model/roleModel.js';
 import User from '../modules/auth/model/userModel.js';
 import { logger } from '../utils/logger.js';
-import mongoose from 'mongoose';
 import { connectDB } from '../config/db.js';
-import Role from '../modules/role/model/roleModel.js';
-import User from '../modules/auth/model/userModel.js';
-import { logger } from '../utils/logger.js';
 
 // Safe to run more than once: it updates the existing role and admin user.
 const seed = async () => {

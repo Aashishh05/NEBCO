@@ -1,14 +1,18 @@
-import { authService } from "../service/authService.js";
+import {
+  login as loginUser,
+  changePassword as changeUserPassword,
+} from "../service/authService.js";
+
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { sendSuccess } from "../../../utils/response.js";
 import { generateToken, cookieOptions } from "../../../utils/generateToken.js";
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const user = await authService.login(email, password);
-  const token = generateToken(user.id);
 
-  res.cookie("token", token, cookieOptions());
+  const user = await loginUser(email, password);
+
+  res.cookie("token", generateToken(user.id), cookieOptions());
 
   sendSuccess(
     res,
@@ -36,7 +40,7 @@ export const me = asyncHandler(async (req, res) => {
 export const changePassword = asyncHandler(async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
-  await authService.changePassword(req.user.id, currentPassword, newPassword);
+  await changeUserPassword(req.user.id, currentPassword, newPassword);
 
   sendSuccess(res, null, "Password updated");
 });

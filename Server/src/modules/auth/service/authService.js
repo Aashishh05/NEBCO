@@ -11,18 +11,18 @@ import { ApiError } from "../../../utils/ApiError.js";
 export const login = async (email, password) => {
   const user = await findByEmail(email);
 
-  // Use one message for every login failure
-  // so we don't reveal whether the email exists.
   if (!user || !user.isActive) {
     throw new ApiError(401, "Invalid email or password");
   }
 
   const isPasswordCorrect = await user.comparePassword(password);
+
   if (!isPasswordCorrect) {
     throw new ApiError(401, "Invalid email or password");
   }
 
   await updateLastLogin(user._id);
+
   return await getAccess(user._id);
 };
 
@@ -49,7 +49,11 @@ export const getAccess = async (id) => {
   };
 };
 
-export const changePassword = async (id, currentPassword, newPassword) => {
+export const changePassword = async (
+  id,
+  currentPassword,
+  newPassword
+) => {
   const user = await findByIdWithPassword(id);
 
   if (!user) {
@@ -57,6 +61,7 @@ export const changePassword = async (id, currentPassword, newPassword) => {
   }
 
   const isPasswordCorrect = await user.comparePassword(currentPassword);
+
   if (!isPasswordCorrect) {
     throw new ApiError(400, "Current password is incorrect");
   }
