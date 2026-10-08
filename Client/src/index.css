@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* NEBCO design tokens — palette, fonts and base rules from the spec. */
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-400.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-500.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-600.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-800.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@theme {
+  --color-background: #faf9f6;
+  --color-ink: #222421;
+  --color-red: #b82026;
+  --color-deep-red: #981b20;
+  --color-beige: #efe9dc;
+  --color-muted: #efede8;
+  --color-muted-fg: #64655f;
+  --color-border: #deded7;
+  --color-gold: #aa8c56;
+  --color-dark: #232720;
+  --color-footer: #20231f;
+  --font-sans: Manrope, Arial, Helvetica, sans-serif;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 28px;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 5px;
+}
+
+::selection {
+  background: var(--color-red);
+  color: #fff;
+}
