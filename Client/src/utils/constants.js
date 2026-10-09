@@ -9,6 +9,21 @@ export const APPOINTMENT_STATUSES = ["pending", "confirmed", "cancelled"];
 
 export const PERMISSION_ACTIONS = ["read", "create", "update", "delete"];
 
+export const PERMISSION_MODULES = [
+  "dashboard",
+  "projects",
+  "testimonials",
+  "team",
+  "media",
+  "users",
+  "roles",
+  "permissions",
+  "enquiries",
+  "appointments",
+  "audit",
+  "settings",
+];
+
 export const STATUS_TONES = {
   new: "info",
   pending: "info",

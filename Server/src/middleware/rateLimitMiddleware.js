@@ -53,22 +53,23 @@ const build = (name, windowMs, max, message) =>
   });
 
 const MIN = 60 * 1000;
+const isProd = process.env.NODE_ENV === "production";
 
 export const globalLimiter = build(
   "global",
   15 * MIN,
-  300,
+  isProd ? 300 : 2000,
   "Too many requests, try again later",
 );
 export const loginLimiter = build(
   "login",
   15 * MIN,
-  5,
+  isProd ? 5 : 100,
   "Too many login attempts, try again in 15 minutes",
 );
 export const formLimiter = build(
   "form",
   60 * MIN,
-  5,
+  isProd ? 5 : 100,
   "Too many submissions, try again later",
 );
