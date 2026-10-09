@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+main {
+  display: block;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 28px;
@@ -1874,6 +1878,10 @@ h3 {
 .service-contact {
   background: #eee7dc;
   padding: 60px 0;
+}
+
+.service-comparison-section {
+  padding: 5px 0 70px;
 }
 
 .service-contact > .container {

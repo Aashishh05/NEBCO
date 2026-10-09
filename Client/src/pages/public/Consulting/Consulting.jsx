@@ -1,6 +1,6 @@
 import BusinessHero from "@/components/business/BusinessHero";
 import ScopeCards from "@/components/business/ScopeCards";
-import ComparisonBoard from "@/components/business/ComparisonBoard";
+import DevelopmentApproach from "@/components/business/DevelopmentApproach";
 import TalkCta from "@/components/business/TalkCta";
 import { IMAGES } from "@/utils/constants";
 
@@ -37,24 +37,13 @@ const Consulting = () => {
       <BusinessHero
         name="NEBCO Consulting"
         title="A clear direction for your development."
-        description="End-to-end real estate development support, from understanding your land's potential to coordinating design, approvals, finance planning, delivery and sales or leasing support."
+        description="End-to-end real estate development support, from understanding your land’s potential to coordinating design, approvals, finance planning, delivery and sales or leasing support."
         ctaLabel="Discuss your development"
         image={IMAGES.planning}
+        imageCaption="Illustrative architectural concept"
       />
-      <ScopeCards cards={cards} />
-      <ComparisonBoard
-        eyebrow="A coordinated approach to development"
-        lead="Development management"
-        text="A connected team. A clearer way forward."
-        browse="With development management, we coordinate the specialist inputs and teams agreed for your project."
-        points={[
-          "One lead for agreed development coordination",
-          "Design, scope and budget reviewed together",
-          "Documented decisions and progress reviews",
-        ]}
-        note="Responsibilities follow your agreed development scope."
-        ctaLabel="Explore development management"
-      />
+      <ScopeCards cards={cards} label="Consulting scope" />
+      <DevelopmentApproach />
       <TalkCta />
     </>
   );

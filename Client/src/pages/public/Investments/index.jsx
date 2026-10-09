@@ -39,6 +39,7 @@ const Investments = () => {
         description="NEBCO brings the right stakeholders together and serves as facilitator, project manager and consultant. Where appropriate, we may also invest and take equity, strengthening our commitment to the project."
         ctaLabel="Explore a partnership"
         image={IMAGES.investments}
+        imageCaption="Illustrative architectural concept"
       />
       <ScopeCards cards={cards} />
       <TalkCta />

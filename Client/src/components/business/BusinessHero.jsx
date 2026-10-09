@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { openModal } from "@/store/slices/uiSlice";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 
-const BusinessHero = ({ name, title, description, ctaLabel, image }) => {
+const BusinessHero = ({ name, title, description, ctaLabel, image, imageCaption }) => {
   const dispatch = useDispatch();
 
   return (
@@ -27,6 +27,7 @@ const BusinessHero = ({ name, title, description, ctaLabel, image }) => {
         {image && (
           <img src={image} alt={`${name} illustrative concept`} width="1536" height="1024" />
         )}
+        {imageCaption && <figcaption>{imageCaption}</figcaption>}
       </figure>
     </section>
   );
