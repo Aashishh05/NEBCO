@@ -39,6 +39,12 @@ const enquirySchema = new mongoose.Schema(
       trim: true,
     },
 
+    location: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
     interest: {
       type: String,
       default: "",

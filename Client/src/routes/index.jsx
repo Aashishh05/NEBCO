@@ -1,8 +1,9 @@
 import { Suspense, lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const LoginPage = lazy(() => import("@/pages/admin/LoginPage.jsx"));
+const SubmissionsPage = lazy(() => import("@/pages/admin/Submissions.jsx"));
 const HomePage = lazy(() => import("@/pages/public/Home/index.jsx"));
 const ConstructionPage = lazy(() => import("@/pages/public/Construction/Construction.jsx"));
 const ConsultingPage = lazy(() => import("@/pages/public/Consulting/Consulting.jsx"));
@@ -29,7 +30,10 @@ const AppRoutes = () => {
               <AdminLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<SubmissionsPage />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Route>
 
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />

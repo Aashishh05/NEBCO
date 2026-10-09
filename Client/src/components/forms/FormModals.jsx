@@ -44,6 +44,7 @@ const FormModals = () => {
             key={activeModal}
             mode={isCall ? "appointment" : "enquiry"}
             context={isCall ? "" : "your project"}
+            onClose={close}
           />
         )}
       </DialogContent>

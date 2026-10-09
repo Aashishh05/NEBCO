@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
-
-const EMAIL = "nebconepal@gmail.com";
+import { sendEnquiry } from "@/api/enquiries.api.js";
+import { sendAppointment } from "@/api/appointments.api.js";
 
 const emptyValues = { name: "", email: "", detail: "", brief: "" };
 
-const ContactForm = ({ mode = "enquiry", context = "", onEdit }) => {
+const ContactForm = ({ mode = "enquiry", context = "", onClose }) => {
   const isCall = mode === "appointment";
   const [values, setValues] = useState(emptyValues);
   const [errors, setErrors] = useState({});
-  const [draft, setDraft] = useState(null);
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const update = (key) => (event) =>
     setValues((current) => ({ ...current, [key]: event.target.value }));
@@ -24,52 +25,46 @@ const ContactForm = ({ mode = "enquiry", context = "", onEdit }) => {
     return Object.keys(next).length === 0;
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (!validate()) return;
 
-    const subject = isCall ? "NEBCO — call request" : "NEBCO — enquiry";
-    const lines = [
-      `Name: ${values.name}`,
-      `Email: ${values.email}`,
-      isCall
-        ? `Preferred day, time & timezone: ${values.detail}`
-        : values.detail
-          ? `Project location: ${values.detail}`
-          : null,
-      `${isCall ? "Discussion" : "About the project"}: ${values.brief}`,
-    ].filter(Boolean);
+    const payload = {
+      name: values.name,
+      email: values.email,
+      message: values.brief,
+      website: "",
+    };
 
-    setDraft(
-      `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        lines.join("\n"),
-      )}`,
-    );
+    try {
+      setSending(true);
+      if (isCall) {
+        await sendAppointment({ ...payload, preferredTime: values.detail });
+      } else {
+        await sendEnquiry({ ...payload, location: values.detail });
+      }
+      setSent(true);
+    } catch (err) {
+      setErrors({
+        form: err.response?.data?.message || "Something went wrong. Please try again.",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
-  if (draft) {
+  if (sent) {
     return (
       <div className="draft-ready">
         <Check size={30} aria-hidden="true" />
         <p>
-          {isCall
-            ? "Your call request is ready to send. The appointment will be confirmed by our team."
-            : "Your enquiry is ready to send."}
+          Thank you, {values.name}.
           <br />
-          Nothing has been sent yet.
+          Your {isCall ? "call request" : "enquiry"} has been received. Our team will be in
+          touch.
         </p>
-        <a className="button" href={draft}>
-          Open email draft
-        </a>
-        <button
-          type="button"
-          className="text-link"
-          onClick={() => {
-            setDraft(null);
-            onEdit?.();
-          }}
-        >
-          Edit my details
+        <button type="button" className="button" onClick={onClose}>
+          Close
         </button>
       </div>
     );
@@ -150,12 +145,14 @@ const ContactForm = ({ mode = "enquiry", context = "", onEdit }) => {
         {errors.brief && <span className="form-error">{errors.brief}</span>}
       </label>
 
-      <button type="submit" className="button">
-        {isCall ? "Prepare my call request" : "Prepare my enquiry"}
+      {errors.form && <p className="form-error">{errors.form}</p>}
+
+      <button type="submit" className="button" disabled={sending}>
+        {sending ? "Sending…" : isCall ? "Prepare my call request" : "Prepare my enquiry"}
       </button>
 
       <p className="form-note">
-        Review and send from your email app. Your details are not stored on this website.
+        Your details are sent to NEBCO and reviewed by our team.
       </p>
     </form>
   );

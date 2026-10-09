@@ -1,31 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  LayoutDashboard,
-  FolderKanban,
-  Inbox,
-  CalendarClock,
-  Quote,
-  Users,
-  Image,
-  UserCog,
-  Shield,
-  ScrollText,
-  Settings,
-} from "lucide-react";
+import { Inbox } from "lucide-react";
 
 const items = [
-  { label: "Dashboard", to: "/admin", module: "dashboard", action: "read", icon: LayoutDashboard, end: true },
-  { label: "Projects", to: "/admin/projects", module: "projects", action: "read", icon: FolderKanban },
-  { label: "Enquiries", to: "/admin/enquiries", module: "enquiries", action: "read", icon: Inbox },
-  { label: "Appointments", to: "/admin/appointments", module: "appointments", action: "read", icon: CalendarClock },
-  { label: "Testimonials", to: "/admin/testimonials", module: "testimonials", action: "read", icon: Quote },
-  { label: "Team", to: "/admin/team", module: "team", action: "read", icon: Users },
-  { label: "Media", to: "/admin/media", module: "media", action: "read", icon: Image },
-  { label: "Users", to: "/admin/users", module: "users", action: "read", icon: UserCog },
-  { label: "Roles", to: "/admin/roles", module: "roles", action: "read", icon: Shield },
-  { label: "Audit logs", to: "/admin/audit", module: "audit", action: "read", icon: ScrollText },
-  { label: "Settings", to: "/admin/settings", module: "settings", action: "read", icon: Settings },
+  { label: "Submissions", to: "/admin", module: "dashboard", action: "read", icon: Inbox, end: true },
 ];
 
 const Sidebar = ({ onNavigate }) => {

@@ -6,6 +6,7 @@ export const createEnquirySchema = z.object({
   name: z.string().min(2).max(60),
   email: z.string().email().or(z.literal("")),
   phone: z.string().max(30).optional().default(""),
+  location: z.string().max(150).optional().default(""),
   interest: z.string().max(60).optional().default(""),
   message: z.string().min(5).max(2000).optional().default(""),
   // honeypot — real visitors never fill this

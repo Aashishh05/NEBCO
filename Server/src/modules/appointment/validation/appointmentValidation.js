@@ -7,7 +7,7 @@ export const createAppointmentSchema = z.object({
   email: z.string().email().or(z.literal("")),
   phone: z.string().max(30).optional().default(""),
   preferredDate: z.string().max(20).optional().default(""),
-  preferredTime: z.string().max(20).optional().default(""),
+  preferredTime: z.string().max(180).optional().default(""),
   message: z.string().max(2000).optional().default(""),
   // honeypot — real visitors never fill this
   website: z.string().optional().default(""),
