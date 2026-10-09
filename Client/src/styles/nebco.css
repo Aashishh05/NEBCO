@@ -2798,6 +2798,10 @@ h3 {
   .service-scope h2 {
     font-size: 30px;
   }
+  .service-scope .button {
+    width: 100%;
+    font-size: 13px;
+  }
   .service-contact {
     padding-block: 45px;
   }

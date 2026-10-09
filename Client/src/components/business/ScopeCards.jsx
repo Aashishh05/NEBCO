@@ -15,7 +15,7 @@ const ScopeCard = ({ id, title, text, points = [], ctaLabel }) => {
         <ul>
           {points.map((point) => (
             <li key={point}>
-              <Check />
+              <Check size={17} />
               {point}
             </li>
           ))}
@@ -27,15 +27,13 @@ const ScopeCard = ({ id, title, text, points = [], ctaLabel }) => {
   );
 };
 
-const ScopeCards = ({ cards = [] }) => {
+const ScopeCards = ({ cards = [], label = "Construction scope" }) => {
   return (
-    <div className="container">
-      <div className="service-scope">
-        {cards.map((card) => (
-          <ScopeCard key={card.title} {...card} />
-        ))}
-      </div>
-    </div>
+    <section className="service-scope container" aria-label={label}>
+      {cards.map((card) => (
+        <ScopeCard key={card.title} {...card} />
+      ))}
+    </section>
   );
 };
 
