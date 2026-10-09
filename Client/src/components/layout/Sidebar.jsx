@@ -13,12 +13,15 @@ import {
   ScrollText,
   Settings,
   LogOut,
+  Bell,
 } from "lucide-react";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
 import { logout } from "@/store/slices/authSlice";
+import useNotifications from "@/hooks/useNotifications";
 
 const items = [
   { label: "Dashboard", to: "/admin", module: "dashboard", action: "read", icon: LayoutDashboard, end: true },
+  { label: "Notifications", to: "/admin/notifications", module: "enquiries", action: "read", icon: Bell, badge: true },
   { label: "Projects", to: "/admin/projects", module: "projects", action: "read", icon: FolderKanban },
   { label: "Enquiries", to: "/admin/enquiries", module: "enquiries", action: "read", icon: Inbox },
   { label: "Call requests", to: "/admin/appointments", module: "appointments", action: "read", icon: CalendarClock },
@@ -35,6 +38,7 @@ const Sidebar = ({ onNavigate }) => {
   const navigate = useNavigate();
   const permissions = useSelector((state) => state.auth.permissions);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const { count } = useNotifications();
 
   const visible = items.filter((item) => permissions?.[item.module]?.[item.action]);
 
@@ -75,6 +79,11 @@ const Sidebar = ({ onNavigate }) => {
           >
             <item.icon className="size-5" />
             {item.label}
+            {item.badge && count > 0 && (
+              <span className="ml-auto inline-flex h-5 min-w-5 items-center justify-center bg-red px-1 text-[11px] font-bold text-white">
+                {count > 99 ? "99+" : count}
+              </span>
+            )}
           </NavLink>
         ))}
       </nav>

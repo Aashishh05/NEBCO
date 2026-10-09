@@ -4,6 +4,7 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const LoginPage = lazy(() => import("@/pages/admin/LoginPage.jsx"));
 const Dashboard = lazy(() => import("@/pages/admin/Dashboard.jsx"));
+const Notifications = lazy(() => import("@/pages/admin/Notifications.jsx"));
 const Projects = lazy(() => import("@/pages/admin/Projects.jsx"));
 const Enquiries = lazy(() => import("@/pages/admin/Enquiries.jsx"));
 const Appointments = lazy(() => import("@/pages/admin/Appointments.jsx"));
@@ -42,6 +43,7 @@ const AppRoutes = () => {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="notifications" element={<Notifications />} />
           <Route path="projects" element={<Projects />} />
           <Route path="enquiries" element={<Enquiries />} />
           <Route path="appointments" element={<Appointments />} />
