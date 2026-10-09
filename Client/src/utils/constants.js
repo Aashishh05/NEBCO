@@ -17,3 +17,20 @@ export const STATUS_TONES = {
   closed: "neutral",
   cancelled: "danger",
 };
+
+export const DEFAULT_CONTACT = {
+  company: "National Estate Builders Co. Pvt. Ltd.",
+  email: "nebconepal@gmail.com",
+  phones: ["+977 980 385 0955"],
+  address: "Kuleshwor, Kathmandu, Nepal",
+  socials: {},
+};
+
+export const IMAGES = {
+  hero: "/images/nebco-hero-architectural-concept-original.png",
+  planning: "/images/nebco-planning-still-life-original.png",
+  investments: "/images/investments-development-concept-original.png",
+  overseas: "/images/nepalis-abroad-home-concept-original.png",
+  kathmandu: "/images/kathmandu_valley_lidia_stawinska.jpg",
+  team: "/images/binayak_bam_malla_4.png",
+};

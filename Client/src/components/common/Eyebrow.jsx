@@ -1,10 +1,11 @@
 const Eyebrow = ({ children, className = "" }) => {
   return (
-    <span
-      className={`inline-block text-[13px] font-bold uppercase tracking-[0.18em] text-red ${className}`}
+    <p
+      className={`flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.12em] leading-relaxed text-[#62645d] ${className}`}
     >
+      <span aria-hidden="true" className="h-[2px] w-7 shrink-0 bg-red" />
       {children}
-    </span>
+    </p>
   );
 };
 

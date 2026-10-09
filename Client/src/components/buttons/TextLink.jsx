@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const TextLink = ({ children, to, className = "", ...props }) => {
+const TextLink = ({ children, to, onClick, className = "", ...props }) => {
   const classes = `inline-flex items-center gap-1 font-semibold text-red underline-offset-4 transition-colors hover:text-deep-red hover:underline ${className}`;
 
   if (to) {
@@ -8,6 +8,14 @@ const TextLink = ({ children, to, className = "", ...props }) => {
       <Link to={to} className={classes} {...props}>
         {children}
       </Link>
+    );
+  }
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={classes} {...props}>
+        {children}
+      </button>
     );
   }
 

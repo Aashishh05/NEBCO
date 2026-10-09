@@ -1,18 +1,21 @@
 import Eyebrow from "./Eyebrow";
 
-const SectionHeading = ({ eyebrow, title, description, align = "left", className = "" }) => {
-  const alignment = align === "center" ? "items-center text-center" : "items-start text-left";
-
+const SectionHeading = ({ eyebrow, title, description, className = "" }) => {
   return (
-    <div className={`flex flex-col gap-3 ${alignment} ${className}`}>
-      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      {title && (
-        <h2 className="text-3xl font-extrabold leading-tight text-ink max-[700px]:text-2xl">
-          {title}
-        </h2>
-      )}
+    <div
+      className={`flex items-end justify-between gap-[45px] mb-[43px] max-[700px]:mb-[28px] max-[700px]:block ${className}`}
+    >
+      <div>
+        {eyebrow && <Eyebrow className="mb-[19px]">{eyebrow}</Eyebrow>}
+        {title && (
+          <h2 className="font-normal leading-[1.15] tracking-[-0.04em] text-ink text-[44px] max-[700px]:text-[34px]">
+            {title}
+          </h2>
+        )}
+      </div>
+
       {description && (
-        <p className="max-w-[640px] text-[17px] leading-relaxed text-muted-fg">
+        <p className="min-w-[265px] max-w-[350px] text-[16px] leading-[1.85] text-[#676b61] max-[700px]:mt-[16px] max-[700px]:min-w-0">
           {description}
         </p>
       )}

@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { X, Plus, Minus, ArrowRight } from "lucide-react";
-import { closeMobileMenu } from "@/store/slices/uiSlice";
+import { closeMobileMenu, openModal } from "@/store/slices/uiSlice";
 
 const sections = [
   {
-    title: "What we do",
+    title: "Our businesses",
     links: [
       { label: "Construction", to: "/construction" },
       { label: "Consulting", to: "/consulting" },
@@ -16,9 +16,9 @@ const sections = [
   {
     title: "Company",
     links: [
-      { label: "About", to: "/about" },
-      { label: "Projects", to: "/projects" },
-      { label: "Contact", to: "/contact" },
+      { label: "Our experience", to: "/#experience" },
+      { label: "About NEBCO", to: "/#about" },
+      { label: "Overseas clients", to: "/#overseas" },
     ],
   },
 ];
@@ -26,7 +26,7 @@ const sections = [
 const MobileSheet = () => {
   const dispatch = useDispatch();
   const open = useSelector((state) => state.ui.mobileMenuOpen);
-  const [expanded, setExpanded] = useState("What we do");
+  const [expanded, setExpanded] = useState("Our businesses");
 
   const close = () => dispatch(closeMobileMenu());
 
@@ -92,14 +92,17 @@ const MobileSheet = () => {
         </nav>
 
         <div className="p-6">
-          <Link
-            to="/contact"
-            onClick={close}
-            className="flex h-[53px] items-center justify-center gap-2 bg-red text-[14px] font-semibold text-white transition-colors hover:bg-deep-red"
+          <button
+            type="button"
+            onClick={() => {
+              close();
+              dispatch(openModal("enquiry"));
+            }}
+            className="flex h-[53px] w-full items-center justify-center gap-2 bg-red text-[14px] font-semibold text-white transition-colors hover:bg-deep-red"
           >
             Discuss your project
             <ArrowRight className="size-4" />
-          </Link>
+          </button>
         </div>
       </aside>
     </div>

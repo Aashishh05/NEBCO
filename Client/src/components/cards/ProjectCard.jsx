@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 
 const ProjectCard = ({ project }) => {
-  const { title, slug, image, category, location, year } = project;
+  const { title, slug, image, category, location, year, summary } = project;
 
-  return (
-    <Link to={`/projects/${slug}`} className="group block">
+  const label = [category, location].filter(Boolean).join(" / ");
+
+  const content = (
+    <>
       <div className="aspect-[4/3] overflow-hidden bg-muted">
         {image?.url ? (
           <img
@@ -16,20 +18,30 @@ const ProjectCard = ({ project }) => {
       </div>
 
       <div className="pt-4">
-        {category && (
-          <span className="text-[13px] font-bold uppercase tracking-[0.16em] text-red">
-            {category}
+        {label && (
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-red">
+            {label}
           </span>
         )}
         <h3 className="mt-1 text-xl font-bold text-ink transition-colors group-hover:text-red">
           {title}
         </h3>
-        <p className="mt-1 text-sm text-muted-fg">
-          {[location, year].filter(Boolean).join(" · ")}
-        </p>
+        {summary && <p className="mt-2 text-sm text-muted-fg">{summary}</p>}
+        {year && <p className="mt-1 text-sm text-muted-fg">{year}</p>}
       </div>
-    </Link>
+    </>
   );
+
+  if (slug) {
+    return (
+      <Link to={`/projects/${slug}`} className="group block">
+        {content}
+      </Link>
+    );
+  }
+
+  return <article className="group block">{content}</article>;
 };
 
 export default ProjectCard;
+

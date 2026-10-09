@@ -37,7 +37,7 @@ const NavDropdown = () => {
         aria-expanded={open}
         aria-haspopup="true"
       >
-        What we do
+        Our businesses
         <ChevronDown
           className={`size-4 transition-transform ${open ? "rotate-180" : ""}`}
         />
