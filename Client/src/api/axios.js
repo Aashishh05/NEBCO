@@ -1,7 +1,11 @@
 import axios from "axios";
 
+// Always call the API on this same origin:
+//  - dev: Vite proxies /api to the local backend
+//  - prod: vercel.json proxies /api to the deployed backend
+// Same-origin keeps the auth cookie first-party (no cross-site/CORS issues).
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api",
+  baseURL: "/api",
   withCredentials: true,
 });
 
