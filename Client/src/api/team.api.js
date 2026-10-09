@@ -5,8 +5,8 @@ export const getTeam = async () => {
   return res.data;
 };
 
-export const getAdminTeam = async () => {
-  const res = await api.get("/team/admin/all");
+export const getAdminTeam = async (params) => {
+  const res = await api.get("/team/admin/all", { params });
   return res.data;
 };
 

@@ -6,10 +6,13 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 import SecondaryButton from "@/components/buttons/SecondaryButton";
 import Modal from "@/components/common/Modal";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
+import Pagination from "@/components/common/Pagination";
 import FormField from "@/components/forms/FormField";
 import ImageUploader from "@/components/forms/ImageUploader";
 import Spinner from "@/components/loaders/Spinner";
 import usePermission from "@/hooks/usePermission";
+
+const LIMIT = 10;
 
 const rowId = (row) => row?._id || row?.id;
 
@@ -41,6 +44,8 @@ const ResourceManager = ({
   searchable = true,
 }) => {
   const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -54,10 +59,12 @@ const ResourceManager = ({
   const canUpdate = usePermission(module, "update");
   const canDelete = usePermission(module, "delete");
 
-  const load = async () => {
+  const load = async (nextPage = page, nextSearch = search) => {
     setLoading(true);
     try {
-      setItems(await listFn());
+      const res = await listFn({ page: nextPage, limit: LIMIT, search: nextSearch });
+      setItems(res.items || []);
+      setTotal(res.total || 0);
     } catch (err) {
       toast.error(err.response?.data?.message || `Could not load ${title.toLowerCase()}`);
     } finally {
@@ -66,8 +73,9 @@ const ResourceManager = ({
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    load(page, search);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, search]);
 
   const openCreate = () => {
     setEditing(null);
@@ -102,11 +110,7 @@ const ResourceManager = ({
       if (text && field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
         errors[field.name] = "Enter a valid email";
       }
-      if (
-        text &&
-        field.pattern &&
-        !new RegExp(field.pattern).test(text)
-      ) {
+      if (text && field.pattern && !new RegExp(field.pattern).test(text)) {
         errors[field.name] = field.patternMessage || `${field.label} is not valid`;
       }
     }
@@ -141,18 +145,14 @@ const ResourceManager = ({
     try {
       await deleteFn(deleteId);
       toast.success("Deleted");
-      await load();
+      const lastPage = Math.max(1, Math.ceil((total - 1) / LIMIT));
+      if (page > lastPage) setPage(lastPage);
+      else await load();
     } catch (err) {
       toast.error(err.response?.data?.message || "Delete failed");
       throw err;
     }
   };
-
-  const filtered = search
-    ? items.filter((item) =>
-        JSON.stringify(item).toLowerCase().includes(search.toLowerCase()),
-      )
-    : items;
 
   return (
     <div>
@@ -170,7 +170,10 @@ const ResourceManager = ({
           <Search className="size-4 text-muted-fg" />
           <input
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setPage(1);
+              setSearch(event.target.value);
+            }}
             placeholder={`Search ${title.toLowerCase()}…`}
             className="h-11 w-full bg-transparent text-sm outline-none"
           />
@@ -197,7 +200,7 @@ const ResourceManager = ({
                 </td>
               </tr>
             )}
-            {!loading && filtered.length === 0 && (
+            {!loading && items.length === 0 && (
               <tr>
                 <td
                   colSpan={columns.length + 1}
@@ -208,7 +211,7 @@ const ResourceManager = ({
               </tr>
             )}
             {!loading &&
-              filtered.map((row, index) => (
+              items.map((row, index) => (
                 <tr key={rowId(row) || index} className="border-b border-border last:border-0">
                   {columns.map((column) => (
                     <td key={column.key} className="px-4 py-3 align-middle text-ink">
@@ -244,6 +247,8 @@ const ResourceManager = ({
           </tbody>
         </table>
       </div>
+
+      <Pagination page={page} limit={LIMIT} total={total} onPageChange={setPage} />
 
       <Modal
         open={modalOpen}

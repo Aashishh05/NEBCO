@@ -10,9 +10,9 @@ export const getTestimonials = asyncHandler(async (req, res) => {
 });
 
 export const getAdminTestimonials = asyncHandler(async (req, res) => {
-  const testimonials = await testimonialService.listAdmin();
+  const { items, total, page, limit } = await testimonialService.listAdmin(req.query);
 
-  sendSuccess(res, { testimonials });
+  sendSuccess(res, { items, total, page, limit });
 });
 
 export const createTestimonial = asyncHandler(async (req, res) => {

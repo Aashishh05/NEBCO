@@ -6,6 +6,7 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 import SecondaryButton from "@/components/buttons/SecondaryButton";
 import Modal from "@/components/common/Modal";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
+import Pagination from "@/components/common/Pagination";
 import FormField from "@/components/forms/FormField";
 import Spinner from "@/components/loaders/Spinner";
 import usePermission from "@/hooks/usePermission";
@@ -14,6 +15,8 @@ import { getPermissionsByRole, updatePermissions } from "@/api/permissions.api.j
 import { PERMISSION_MODULES, PERMISSION_ACTIONS } from "@/utils/constants";
 
 const emptyRole = { name: "", slug: "", description: "" };
+
+const LIMIT = 10;
 
 const roleId = (role) => role?._id || role?.id;
 
@@ -32,6 +35,8 @@ const buildMatrix = (modules = {}) => {
 
 const Roles = () => {
   const [roles, setRoles] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const [formOpen, setFormOpen] = useState(false);
@@ -50,10 +55,12 @@ const Roles = () => {
   const canUpdate = usePermission("roles", "update");
   const canDelete = usePermission("roles", "delete");
 
-  const load = async () => {
+  const load = async (nextPage = page) => {
     setLoading(true);
     try {
-      setRoles((await getRoles()).data?.roles || []);
+      const { data } = await getRoles({ page: nextPage, limit: LIMIT });
+      setRoles(data?.items || []);
+      setTotal(data?.total || 0);
     } catch (err) {
       toast.error(err.response?.data?.message || "Could not load roles");
     } finally {
@@ -62,8 +69,9 @@ const Roles = () => {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    load(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   const openCreate = () => {
     setEditing(null);
@@ -217,6 +225,8 @@ const Roles = () => {
           </tbody>
         </table>
       </div>
+
+      <Pagination page={page} limit={LIMIT} total={total} onPageChange={setPage} />
 
       <Modal
         open={formOpen}

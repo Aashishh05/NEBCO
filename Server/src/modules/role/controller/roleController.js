@@ -4,9 +4,9 @@ import * as roleService from "../service/roleService.js";
 import { record } from "../../audit/service/auditService.js";
 
 export const getRoles = asyncHandler(async (req, res) => {
-  const roles = await roleService.list();
+  const { items, total, page, limit } = await roleService.list(req.query);
 
-  sendSuccess(res, { roles });
+  sendSuccess(res, { items, total, page, limit });
 });
 
 export const createRole = asyncHandler(async (req, res) => {

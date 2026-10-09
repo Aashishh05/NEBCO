@@ -22,9 +22,9 @@ export const getFeaturedProjects = asyncHandler(async (req, res) => {
 });
 
 export const getAdminProjects = asyncHandler(async (req, res) => {
-  const projects = await projectService.listAdmin();
+  const { items, total, page, limit } = await projectService.listAdmin(req.query);
 
-  sendSuccess(res, { projects });
+  sendSuccess(res, { items, total, page, limit });
 });
 
 export const createProject = asyncHandler(async (req, res) => {

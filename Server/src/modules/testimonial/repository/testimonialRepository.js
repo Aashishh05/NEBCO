@@ -8,6 +8,14 @@ export const findAll = async () => {
   return await Testimonial.find().sort({ order: 1 });
 };
 
+export const findPage = async (filter, skip, limit) => {
+  return await Testimonial.find(filter).sort({ order: 1 }).skip(skip).limit(limit);
+};
+
+export const count = async (filter) => {
+  return await Testimonial.countDocuments(filter);
+};
+
 export const findById = async (id) => {
   return await Testimonial.findById(id);
 };

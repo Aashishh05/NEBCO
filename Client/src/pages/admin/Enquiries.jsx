@@ -3,19 +3,26 @@ import { toast } from "sonner";
 import { RefreshCw, Trash2 } from "lucide-react";
 import PageHeader from "@/components/layout/PageHeader";
 import StatusBadge from "@/components/common/StatusBadge";
+import Pagination from "@/components/common/Pagination";
 import Spinner from "@/components/loaders/Spinner";
 import { getEnquiries, updateEnquiry, deleteEnquiry } from "@/api/enquiries.api.js";
 import { formatDateTime } from "@/utils/formatDate";
 import { ENQUIRY_STATUSES } from "@/utils/constants";
 
+const LIMIT = 10;
+
 const Enquiries = () => {
   const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const load = async () => {
+  const load = async (nextPage = page) => {
     setLoading(true);
     try {
-      setItems((await getEnquiries({ limit: 100 })).data?.items || []);
+      const { data } = await getEnquiries({ page: nextPage, limit: LIMIT });
+      setItems(data?.items || []);
+      setTotal(data?.total || 0);
     } catch (err) {
       toast.error(err.response?.data?.message || "Could not load enquiries");
     } finally {
@@ -24,8 +31,9 @@ const Enquiries = () => {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    load(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   const setStatus = async (id, status) => {
     try {
@@ -43,7 +51,9 @@ const Enquiries = () => {
     if (!window.confirm("Delete this enquiry?")) return;
     try {
       await deleteEnquiry(id);
-      setItems((current) => current.filter((item) => item._id !== id));
+      const lastPage = Math.max(1, Math.ceil((total - 1) / LIMIT));
+      if (page > lastPage) setPage(lastPage);
+      else await load();
       toast.success("Deleted");
     } catch (err) {
       toast.error(err.response?.data?.message || "Delete failed");
@@ -133,6 +143,8 @@ const Enquiries = () => {
           </tbody>
         </table>
       </div>
+
+      <Pagination page={page} limit={LIMIT} total={total} onPageChange={setPage} />
     </div>
   );
 };

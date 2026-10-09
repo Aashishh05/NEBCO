@@ -1,6 +1,7 @@
 import {
   findPublished,
-  findAll,
+  findPage,
+  count,
   findById,
   createTestimonial,
   saveTestimonial,
@@ -28,14 +29,32 @@ export const listPublished = async () => {
   return testimonials.map(publicTestimonial);
 };
 
-export const listAdmin = async () => {
-  const testimonials = await findAll();
+export const listAdmin = async (query = {}) => {
+  const page = Math.max(Number(query.page) || 1, 1);
+  const limit = Math.min(Math.max(Number(query.limit) || 10, 1), 100);
 
-  return testimonials.map((testimonial) => ({
-    ...publicTestimonial(testimonial),
-    order: testimonial.order,
-    isPublished: testimonial.isPublished,
-  }));
+  const filter = {};
+  if (query.search)
+    filter.$or = [
+      { client: { $regex: query.search, $options: "i" } },
+      { quote: { $regex: query.search, $options: "i" } },
+    ];
+
+  const [testimonials, total] = await Promise.all([
+    findPage(filter, (page - 1) * limit, limit),
+    count(filter),
+  ]);
+
+  return {
+    items: testimonials.map((testimonial) => ({
+      ...publicTestimonial(testimonial),
+      order: testimonial.order,
+      isPublished: testimonial.isPublished,
+    })),
+    total,
+    page,
+    limit,
+  };
 };
 
 export const create = async (data) => {

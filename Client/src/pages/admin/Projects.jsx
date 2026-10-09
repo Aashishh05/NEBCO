@@ -12,7 +12,10 @@ const Projects = () => (
     title="Projects"
     description="Portfolio projects shown on the website."
     module="projects"
-    listFn={async () => (await getAdminProjects()).data?.projects || []}
+    listFn={async ({ page, limit, search }) => {
+      const { data } = await getAdminProjects({ page, limit, search });
+      return { items: data?.items || [], total: data?.total || 0 };
+    }}
     createFn={createProject}
     updateFn={updateProject}
     deleteFn={deleteProject}

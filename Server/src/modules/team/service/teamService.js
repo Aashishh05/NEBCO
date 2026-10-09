@@ -1,6 +1,7 @@
 import {
   findActive,
-  findAll,
+  findPage,
+  count,
   findById,
   createMember,
   saveMember,
@@ -28,10 +29,32 @@ export const list = async () => {
   return members.map(publicMember);
 };
 
-export const listAdmin = async () => {
-  const members = await findAll();
+export const listAdmin = async (query = {}) => {
+  const page = Math.max(Number(query.page) || 1, 1);
+  const limit = Math.min(Math.max(Number(query.limit) || 10, 1), 100);
 
-  return members.map((member) => ({ ...publicMember(member), order: member.order, isActive: member.isActive }));
+  const filter = {};
+  if (query.search)
+    filter.$or = [
+      { name: { $regex: query.search, $options: "i" } },
+      { position: { $regex: query.search, $options: "i" } },
+    ];
+
+  const [members, total] = await Promise.all([
+    findPage(filter, (page - 1) * limit, limit),
+    count(filter),
+  ]);
+
+  return {
+    items: members.map((member) => ({
+      ...publicMember(member),
+      order: member.order,
+      isActive: member.isActive,
+    })),
+    total,
+    page,
+    limit,
+  };
 };
 
 export const create = async (data) => {

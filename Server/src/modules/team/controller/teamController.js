@@ -10,9 +10,9 @@ export const getTeam = asyncHandler(async (req, res) => {
 });
 
 export const getAdminTeam = asyncHandler(async (req, res) => {
-  const team = await teamService.listAdmin();
+  const { items, total, page, limit } = await teamService.listAdmin(req.query);
 
-  sendSuccess(res, { team });
+  sendSuccess(res, { items, total, page, limit });
 });
 
 export const createMember = asyncHandler(async (req, res) => {

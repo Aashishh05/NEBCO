@@ -7,8 +7,8 @@ const Users = () => {
   const [roles, setRoles] = useState([]);
 
   useEffect(() => {
-    getRoles()
-      .then((res) => setRoles(res.data?.roles || []))
+    getRoles({ limit: 100 })
+      .then((res) => setRoles(res.data?.items || []))
       .catch(() => setRoles([]));
   }, []);
 
@@ -19,7 +19,10 @@ const Users = () => {
       title="Users"
       description="Staff accounts and the role each one holds."
       module="users"
-      listFn={async () => (await getUsers({ limit: 100 })).data?.items || []}
+      listFn={async ({ page, limit, search }) => {
+      const { data } = await getUsers({ page, limit, search });
+      return { items: data?.items || [], total: data?.total || 0 };
+    }}
       createFn={createUser}
       updateFn={(id, data) =>
         updateUser(id, data.password ? data : { ...data, password: undefined })

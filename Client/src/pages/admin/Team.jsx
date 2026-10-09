@@ -6,7 +6,10 @@ const Team = () => (
     title="Team"
     description="Team members shown on the About page."
     module="team"
-    listFn={async () => (await getAdminTeam()).data?.team || []}
+    listFn={async ({ page, limit, search }) => {
+      const { data } = await getAdminTeam({ page, limit, search });
+      return { items: data?.items || [], total: data?.total || 0 };
+    }}
     createFn={createMember}
     updateFn={updateMember}
     deleteFn={deleteMember}

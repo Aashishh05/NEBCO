@@ -8,6 +8,14 @@ export const findAll = async () => {
   return await TeamMember.find().sort({ order: 1 });
 };
 
+export const findPage = async (filter, skip, limit) => {
+  return await TeamMember.find(filter).sort({ order: 1 }).skip(skip).limit(limit);
+};
+
+export const count = async (filter) => {
+  return await TeamMember.countDocuments(filter);
+};
+
 export const findById = async (id) => {
   return await TeamMember.findById(id);
 };

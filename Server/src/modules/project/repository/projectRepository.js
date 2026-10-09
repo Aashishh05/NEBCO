@@ -29,6 +29,14 @@ export const findAll = async () => {
   return await Project.find().sort({ order: 1 });
 };
 
+export const findPage = async (filter, skip, limit) => {
+  return await Project.find(filter).sort({ order: 1 }).skip(skip).limit(limit);
+};
+
+export const count = async (filter) => {
+  return await Project.countDocuments(filter);
+};
+
 export const createProject = async (data) => {
   return await Project.create(data);
 };

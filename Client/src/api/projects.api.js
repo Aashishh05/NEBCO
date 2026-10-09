@@ -15,8 +15,8 @@ export const getProjectBySlug = async (slug) => {
   return res.data;
 };
 
-export const getAdminProjects = async () => {
-  const res = await api.get("/projects/admin/all");
+export const getAdminProjects = async (params) => {
+  const res = await api.get("/projects/admin/all", { params });
   return res.data;
 };
 

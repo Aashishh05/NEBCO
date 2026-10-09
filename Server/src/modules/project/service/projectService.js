@@ -4,7 +4,8 @@ import {
   findActiveBySlug,
   findFeatured,
   findById,
-  findAll,
+  findPage,
+  count,
   createProject,
   saveProject,
   removeProject,
@@ -61,10 +62,33 @@ export const featured = async (limit) => {
   return projects.map(publicProject);
 };
 
-export const listAdmin = async () => {
-  const projects = await findAll();
+export const listAdmin = async (query = {}) => {
+  const page = Math.max(Number(query.page) || 1, 1);
+  const limit = Math.min(Math.max(Number(query.limit) || 10, 1), 100);
 
-  return projects.map((project) => ({ ...publicProject(project), order: project.order, isActive: project.isActive }));
+  const filter = {};
+  if (query.search)
+    filter.$or = [
+      { title: { $regex: query.search, $options: "i" } },
+      { slug: { $regex: query.search, $options: "i" } },
+      { category: { $regex: query.search, $options: "i" } },
+    ];
+
+  const [projects, total] = await Promise.all([
+    findPage(filter, (page - 1) * limit, limit),
+    count(filter),
+  ]);
+
+  return {
+    items: projects.map((project) => ({
+      ...publicProject(project),
+      order: project.order,
+      isActive: project.isActive,
+    })),
+    total,
+    page,
+    limit,
+  };
 };
 
 export const create = async (data) => {

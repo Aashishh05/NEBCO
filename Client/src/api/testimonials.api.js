@@ -5,8 +5,8 @@ export const getTestimonials = async () => {
   return res.data;
 };
 
-export const getAdminTestimonials = async () => {
-  const res = await api.get("/testimonials/admin/all");
+export const getAdminTestimonials = async (params) => {
+  const res = await api.get("/testimonials/admin/all", { params });
   return res.data;
 };
 

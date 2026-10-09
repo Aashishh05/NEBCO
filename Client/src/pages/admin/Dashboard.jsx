@@ -26,8 +26,8 @@ const Dashboard = () => {
         setStats({
           enquiries: enq.data?.total ?? enq.data?.items?.length ?? 0,
           appointments: app.data?.total ?? app.data?.items?.length ?? 0,
-          projects: projects.data?.projects?.length ?? 0,
-          testimonials: testimonials.data?.testimonials?.length ?? 0,
+          projects: projects.data?.total ?? projects.data?.items?.length ?? 0,
+          testimonials: testimonials.data?.total ?? testimonials.data?.items?.length ?? 0,
         });
         setLatest(enq.data?.items || []);
       })

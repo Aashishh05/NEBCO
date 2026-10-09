@@ -11,7 +11,10 @@ const Testimonials = () => (
     title="Testimonials"
     description="Client quotes shown on the website."
     module="testimonials"
-    listFn={async () => (await getAdminTestimonials()).data?.testimonials || []}
+    listFn={async ({ page, limit, search }) => {
+      const { data } = await getAdminTestimonials({ page, limit, search });
+      return { items: data?.items || [], total: data?.total || 0 };
+    }}
     createFn={createTestimonial}
     updateFn={updateTestimonial}
     deleteFn={deleteTestimonial}

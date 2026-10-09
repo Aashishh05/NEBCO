@@ -1,5 +1,6 @@
 import {
-  findAll,
+  findPage,
+  count,
   findById,
   findBySlug,
   createRole,
@@ -31,10 +32,23 @@ const clearRoleCache = async (roleId) => {
   await Promise.all(userIds.map((id) => clearAccessCache(id)));
 };
 
-export const list = async () => {
-  const roles = await findAll();
+export const list = async (query = {}) => {
+  const page = Math.max(Number(query.page) || 1, 1);
+  const limit = Math.min(Math.max(Number(query.limit) || 10, 1), 100);
 
-  return roles.map(publicRole);
+  const filter = {};
+  if (query.search)
+    filter.$or = [
+      { name: { $regex: query.search, $options: "i" } },
+      { slug: { $regex: query.search, $options: "i" } },
+    ];
+
+  const [roles, total] = await Promise.all([
+    findPage(filter, (page - 1) * limit, limit),
+    count(filter),
+  ]);
+
+  return { items: roles.map(publicRole), total, page, limit };
 };
 
 export const create = async (data) => {

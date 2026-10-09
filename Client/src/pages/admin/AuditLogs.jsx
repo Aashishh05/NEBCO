@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import PageHeader from "@/components/layout/PageHeader";
+import Pagination from "@/components/common/Pagination";
 import Spinner from "@/components/loaders/Spinner";
 import { getAuditLogs } from "@/api/audit.api.js";
 import { formatDateTime } from "@/utils/formatDate";
 
+const LIMIT = 10;
+
 const AuditLogs = () => {
   const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const load = async () => {
+  const load = async (nextPage = page) => {
     setLoading(true);
     try {
-      const res = await getAuditLogs({ limit: 100 });
+      const res = await getAuditLogs({ page: nextPage, limit: LIMIT });
       setItems(res.data?.items || []);
+      setTotal(res.data?.total || 0);
     } catch {
       setItems([]);
     } finally {
@@ -22,15 +28,16 @@ const AuditLogs = () => {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    load(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <div>
       <PageHeader title="Audit logs" description="Who changed what, and when.">
         <button
           type="button"
-          onClick={load}
+          onClick={() => load()}
           className="inline-flex min-h-[42px] items-center gap-2 border border-border bg-white px-4 text-sm font-semibold text-ink transition-colors hover:bg-muted"
         >
           <RefreshCw className={`size-4 ${loading ? "animate-spin" : ""}`} />
@@ -81,6 +88,8 @@ const AuditLogs = () => {
           </tbody>
         </table>
       </div>
+
+      <Pagination page={page} limit={LIMIT} total={total} onPageChange={setPage} />
     </div>
   );
 };
