@@ -27,11 +27,14 @@ app.use(
 app.use(
   cors({
     origin(origin, callback) {
-      // No origin (curl, server-to-server) or an allowed/local origin is fine.
-      if (!origin || allowedOrigins.includes(origin) || /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error("Not allowed by CORS"));
+      // Allowed: no origin, a configured origin, localhost, or any Vercel preview.
+      const isAllowed =
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        /^https?:\/\/localhost(:\d+)?$/.test(origin) ||
+        /^https:\/\/[a-z0-9.-]+\.vercel\.app$/i.test(origin);
+
+      return callback(null, Boolean(isAllowed));
     },
     credentials: true,
   }),
