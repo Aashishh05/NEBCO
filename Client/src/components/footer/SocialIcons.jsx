@@ -30,4 +30,10 @@ const YoutubeIcon = (props) => (
   </svg>
 );
 
-export { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon };
+const XIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M18.9 2H22l-6.8 7.8L23.3 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2 2h6.4l4.4 5.9L18.9 2zm-1.1 18h1.7L7.3 3.8H5.5L17.8 20z" />
+  </svg>
+);
+
+export { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon, XIcon };
