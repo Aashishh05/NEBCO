@@ -20,7 +20,7 @@ const Testimonials = () => (
       { name: "client", label: "Client name", required: true },
       { name: "role", label: "Role / company" },
       { name: "rating", label: "Rating (1–5)", type: "number", defaultValue: 5 },
-      { name: "quote", label: "Quote", type: "textarea", rows: 4, full: true },
+      { name: "quote", label: "Quote", type: "textarea", rows: 4, full: true, required: true, minLength: 10 },
       { name: "avatar", label: "Avatar", type: "image" },
     ]}
     columns={[

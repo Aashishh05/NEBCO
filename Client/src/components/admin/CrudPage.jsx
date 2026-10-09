@@ -8,20 +8,24 @@ import Modal from "@/components/common/Modal";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
 import FormField from "@/components/forms/FormField";
 import ImageUploader from "@/components/forms/ImageUploader";
-import StatusBadge from "@/components/common/StatusBadge";
 import Spinner from "@/components/loaders/Spinner";
 import usePermission from "@/hooks/usePermission";
+
+const rowId = (row) => row?._id || row?.id;
 
 const emptyFromFields = (fields) => {
   const values = {};
   for (const field of fields) {
     if (field.type === "image") values[field.name] = { publicId: "", url: "" };
-    else if (field.type === "checkbox") values[field.name] = false;
+    else if (field.type === "checkbox") values[field.name] = field.defaultValue ?? false;
     else if (field.type === "number") values[field.name] = field.defaultValue ?? 0;
     else values[field.name] = field.defaultValue ?? "";
   }
   return values;
 };
+
+const isRequired = (field, editing) =>
+  Boolean(field.required) || Boolean(field.requiredOnCreate && !editing);
 
 const CrudPage = ({
   title,
@@ -42,6 +46,7 @@ const CrudPage = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [values, setValues] = useState(() => emptyFromFields(fields));
+  const [fieldErrors, setFieldErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
@@ -67,6 +72,7 @@ const CrudPage = ({
   const openCreate = () => {
     setEditing(null);
     setValues(emptyFromFields(fields));
+    setFieldErrors({});
     setModalOpen(true);
   };
 
@@ -77,19 +83,42 @@ const CrudPage = ({
     }
     setEditing(row);
     setValues(next);
+    setFieldErrors({});
     setModalOpen(true);
+  };
+
+  const validate = () => {
+    const errors = {};
+    for (const field of fields) {
+      const value = values[field.name];
+      if (isRequired(field, editing) && (value === "" || value == null)) {
+        errors[field.name] = `${field.label} is required`;
+      }
+      if (typeof field.minLength === "number" && String(value || "").trim().length < field.minLength) {
+        errors[field.name] = `${field.label} must be at least ${field.minLength} characters`;
+      }
+    }
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!validate()) return;
     try {
       setSaving(true);
-      if (editing) await updateFn(editing._id, values);
+      if (editing) await updateFn(rowId(editing), values);
       else await createFn(values);
       toast.success(editing ? `${title} updated` : `${title} created`);
       setModalOpen(false);
       await load();
     } catch (err) {
+      const apiErrors = err.response?.data?.errors;
+      if (Array.isArray(apiErrors) && apiErrors.length) {
+        const mapped = {};
+        for (const item of apiErrors) mapped[item.field] = item.message;
+        setFieldErrors(mapped);
+      }
       toast.error(err.response?.data?.message || "Save failed");
     } finally {
       setSaving(false);
@@ -167,8 +196,8 @@ const CrudPage = ({
               </tr>
             )}
             {!loading &&
-              filtered.map((row) => (
-                <tr key={row._id} className="border-b border-border last:border-0">
+              filtered.map((row, index) => (
+                <tr key={rowId(row) || index} className="border-b border-border last:border-0">
                   {columns.map((column) => (
                     <td key={column.key} className="px-4 py-3 align-middle text-ink">
                       {column.render ? column.render(row) : row[column.key]}
@@ -189,7 +218,7 @@ const CrudPage = ({
                       {canDelete && (
                         <button
                           type="button"
-                          onClick={() => setDeleteId(row._id)}
+                          onClick={() => setDeleteId(rowId(row))}
                           className="flex size-8 items-center justify-center text-muted-fg transition-colors hover:text-red"
                           aria-label="Delete"
                         >
@@ -209,7 +238,7 @@ const CrudPage = ({
         onOpenChange={setModalOpen}
         title={editing ? `Edit ${title}` : `New ${title}`}
       >
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
           <div className="grid max-h-[60vh] grid-cols-2 gap-4 overflow-y-auto pr-1 max-[700px]:grid-cols-1">
             {fields.map((field) => {
               if (field.type === "image") {
@@ -252,14 +281,12 @@ const CrudPage = ({
                 id: field.name,
                 value: values[field.name] ?? "",
                 placeholder: field.placeholder,
-                required: field.required,
                 onChange: (event) =>
                   setValues((current) => ({
                     ...current,
                     [field.name]:
                       field.type === "number" ? Number(event.target.value) : event.target.value,
                   })),
-                className: "h-11 rounded-none",
               };
 
               return (
@@ -267,7 +294,8 @@ const CrudPage = ({
                   key={field.name}
                   label={field.label}
                   htmlFor={field.name}
-                  required={field.required}
+                  required={isRequired(field, editing)}
+                  error={fieldErrors[field.name]}
                   className={field.full ? "col-span-2" : ""}
                 >
                   {field.type === "textarea" ? (
@@ -321,5 +349,4 @@ const CrudPage = ({
   );
 };
 
-export { StatusBadge };
 export default CrudPage;

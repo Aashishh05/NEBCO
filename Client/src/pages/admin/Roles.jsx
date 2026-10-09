@@ -15,6 +15,8 @@ import { PERMISSION_MODULES, PERMISSION_ACTIONS } from "@/utils/constants";
 
 const emptyRole = { name: "", slug: "", description: "" };
 
+const roleId = (role) => role?._id || role?.id;
+
 const buildMatrix = (modules = {}) => {
   const matrix = {};
   for (const module of PERMISSION_MODULES) {
@@ -79,7 +81,7 @@ const Roles = () => {
     event.preventDefault();
     try {
       setSaving(true);
-      if (editing) await updateRole(editing._id, { name: values.name, description: values.description });
+      if (editing) await updateRole(roleId(editing), { name: values.name, description: values.description });
       else await createRole(values);
       toast.success(editing ? "Role updated" : "Role created");
       setFormOpen(false);
@@ -95,7 +97,7 @@ const Roles = () => {
     setPermRole(role);
     setPermLoading(true);
     try {
-      const res = await getPermissionsByRole(role._id);
+      const res = await getPermissionsByRole(roleId(role));
       setMatrix(buildMatrix(res.data?.permission?.modules || {}));
     } catch {
       setMatrix(buildMatrix());
@@ -114,7 +116,7 @@ const Roles = () => {
   const savePermissions = async () => {
     try {
       setPermSaving(true);
-      await updatePermissions(permRole._id, { modules: matrix });
+      await updatePermissions(roleId(permRole), { modules: matrix });
       toast.success("Permissions updated");
       setPermRole(null);
     } catch (err) {
@@ -171,8 +173,8 @@ const Roles = () => {
                 </td>
               </tr>
             )}
-            {roles.map((role) => (
-              <tr key={role._id} className="border-b border-border last:border-0">
+            {roles.map((role, index) => (
+              <tr key={roleId(role) || index} className="border-b border-border last:border-0">
                 <td className="px-4 py-3 font-semibold text-ink">{role.name}</td>
                 <td className="px-4 py-3 text-muted-fg">{role.slug}</td>
                 <td className="px-4 py-3 text-muted-fg">{role.description}</td>
@@ -201,7 +203,7 @@ const Roles = () => {
                     {canDelete && (
                       <button
                         type="button"
-                        onClick={() => setDeleteId(role._id)}
+                        onClick={() => setDeleteId(roleId(role))}
                         className="flex size-8 items-center justify-center text-muted-fg transition-colors hover:text-red"
                         aria-label="Delete role"
                       >

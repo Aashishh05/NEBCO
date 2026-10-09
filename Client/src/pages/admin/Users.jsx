@@ -29,7 +29,7 @@ const Users = () => {
       fields={[
         { name: "name", label: "Name", required: true },
         { name: "email", label: "Email", required: true },
-        { name: "password", label: "Password", placeholder: "leave blank to keep" },
+        { name: "password", label: "Password", requiredOnCreate: true, placeholder: "min 6 characters" },
         { name: "role", label: "Role", type: "select", required: true, options: roleOptions },
         { name: "isActive", label: "Active", type: "checkbox", defaultValue: true },
       ]}
