@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@import "./styles/nebco.css";
 
-/* NEBCO design tokens — palette, fonts and base rules from the spec.
+/* NEBCO design tokens — palette and fonts from the spec.
    Manrope loads from Google Fonts in index.html until local files are added. */
 
 @theme {
@@ -9,11 +10,13 @@
   --color-red: #b82026;
   --color-deep-red: #981b20;
   --color-beige: #efe9dc;
+  --color-cream: #f1f0ec;
   --color-muted: #efede8;
   --color-muted-fg: #64655f;
   --color-border: #deded7;
   --color-gold: #aa8c56;
-  --color-dark: #232720;
+  --color-dark: #242925;
+  --color-overseas: #242925;
   --color-footer: #20231f;
   --font-sans: Manrope, Arial, Helvetica, sans-serif;
   --radius-sm: 0;

@@ -8,7 +8,7 @@ const SecondaryButton = ({
   className = "",
   ...props
 }) => {
-  const classes = `inline-flex h-[53px] items-center justify-center gap-2 border border-ink bg-transparent px-7 text-[14px] font-semibold text-ink transition-colors duration-200 hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-60 ${className}`;
+  const classes = `inline-flex min-h-[53px] items-center justify-center gap-2 border border-ink bg-transparent px-7 text-[14px] font-semibold leading-none text-ink transition-colors duration-300 hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-60 ${className}`;
 
   if (to) {
     return (

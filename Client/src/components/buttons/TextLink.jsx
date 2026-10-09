@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const TextLink = ({ children, to, onClick, className = "", ...props }) => {
-  const classes = `inline-flex items-center gap-1 font-semibold text-red underline-offset-4 transition-colors hover:text-deep-red hover:underline ${className}`;
+  const classes = `text-link ${className}`;
 
   if (to) {
     return (

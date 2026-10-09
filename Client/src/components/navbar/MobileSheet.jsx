@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { X, Plus, Minus, ArrowRight } from "lucide-react";
+import { X, Plus, Minus } from "lucide-react";
 import { closeMobileMenu, openModal } from "@/store/slices/uiSlice";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
 const sections = [
   {
@@ -33,36 +34,72 @@ const MobileSheet = () => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 min-[961px]:hidden">
-      <div className="absolute inset-0 bg-black/50" onClick={close} />
+    <div
+      className="min-[961px]:hidden"
+      style={{ position: "fixed", inset: 0, zIndex: 50 }}
+    >
+      <div
+        style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.5)" }}
+        onClick={close}
+      />
 
-      <aside className="absolute right-0 top-0 flex h-full w-[min(390px,90%)] flex-col overflow-y-auto bg-background">
-        <div className="flex h-24 items-center justify-between border-t-[3px] border-red px-6">
-          <img
-            src="/images/nebco-logo.png"
-            alt="NEBCO"
-            className="h-16 w-auto max-w-[200px] object-contain"
-          />
-          <button
-            type="button"
-            onClick={close}
-            className="flex size-11 items-center justify-center text-ink"
-            aria-label="Close menu"
-          >
-            <X className="size-6" />
-          </button>
-        </div>
+      <aside
+        className="navigation-sheet"
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
+          background: "var(--background)",
+        }}
+      >
+        <button
+          type="button"
+          onClick={close}
+          aria-label="Close navigation"
+          style={{
+            position: "absolute",
+            top: 6,
+            right: 6,
+            width: 44,
+            height: 44,
+            display: "grid",
+            placeItems: "center",
+            background: "none",
+            border: 0,
+            cursor: "pointer",
+          }}
+        >
+          <X className="size-6" />
+        </button>
 
-        <nav className="flex flex-col border-t border-border">
+        <nav>
           {sections.map((section) => {
             const isOpen = expanded === section.title;
             return (
-              <div key={section.title} className="border-b border-border">
+              <div key={section.title}>
                 <button
                   type="button"
                   onClick={() => setExpanded(isOpen ? "" : section.title)}
-                  className="flex w-full items-center justify-between px-6 py-5 text-left text-[15px] font-semibold text-ink"
                   aria-expanded={isOpen}
+                  style={{
+                    width: "100%",
+                    borderBottom: "1px solid var(--border)",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "18px 0",
+                    fontFamily: "inherit",
+                    fontSize: 18,
+                    background: "none",
+                    border: 0,
+                    borderBottomWidth: 1,
+                    borderBottomStyle: "solid",
+                    cursor: "pointer",
+                    display: "flex",
+                  }}
                 >
                   {section.title}
                   {isOpen ? (
@@ -72,38 +109,30 @@ const MobileSheet = () => {
                   )}
                 </button>
 
-                {isOpen && (
-                  <div className="bg-muted pb-2">
-                    {section.links.map((link) => (
-                      <Link
-                        key={link.to}
-                        to={link.to}
-                        onClick={close}
-                        className="block px-6 py-3 text-[15px] text-ink transition-colors hover:text-red"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                {isOpen &&
+                  section.links.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={close}
+                      style={{ borderBottom: "1px solid var(--border)" }}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
               </div>
             );
           })}
         </nav>
 
-        <div className="p-6">
-          <button
-            type="button"
-            onClick={() => {
-              close();
-              dispatch(openModal("enquiry"));
-            }}
-            className="flex h-[53px] w-full items-center justify-center gap-2 bg-red text-[14px] font-semibold text-white transition-colors hover:bg-deep-red"
-          >
-            Discuss your project
-            <ArrowRight className="size-4" />
-          </button>
-        </div>
+        <PrimaryButton
+          onClick={() => {
+            close();
+            dispatch(openModal("enquiry"));
+          }}
+        >
+          Discuss your project
+        </PrimaryButton>
       </aside>
     </div>
   );

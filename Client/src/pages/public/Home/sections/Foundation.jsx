@@ -1,23 +1,45 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, Building2, HardHat, PackageCheck, ClipboardCheck } from "lucide-react";
+import { Check, Building2, HardHat, PackageCheck, ClipboardCheck, ArrowRight } from "lucide-react";
 import Container from "@/components/common/Container";
 
-const tabs = [
-  {
-    id: "separate",
+const pillars = [
+  { icon: HardHat, title: "Site execution", text: "People & work sequence" },
+  { icon: PackageCheck, title: "Materials & trades", text: "Procurement & coordination" },
+  { icon: ClipboardCheck, title: "Quality & progress", text: "Checks & reporting" },
+];
+
+const tabs = {
+  separate: {
     label: "Managing separate trades",
-    kicker: "Managing separate trades",
-    heading: "A simpler way to keep the build moving.",
-    text: "We manage the people, materials and checks within your agreed construction scope.",
+    kicker: "Construction delivery",
+    heading: "You connect the work on site.",
+    text: "When engaging separate trades, you take the lead in bringing their work, costs and schedules together.",
     points: [
-      "A managed site team and work programme",
-      "Agreed costs, specifications and recorded changes",
-      "Site supervision, quality checks and progress updates",
+      "Coordinate individual crews and work sequences",
+      "Bring together quotations, quantities and changes",
+      "Arrange supervision and follow up across teams",
     ],
+    boardTag: "Separate appointments",
+    leadLabel: "You coordinate the teams",
+    leadName: "Individual appointments",
+    leadText: "You connect their work, information and decisions.",
+    result: "Separate instructions. Individual follow-ups.",
+    theme: {
+      board: "border border-[#d3cdbd] bg-[#ebe7de] text-[#252623]",
+      top: "border-b border-[#d3cdbd] text-[#7a7c72]",
+      lead: "border-b border-[#cfcabb] bg-[#d7d8cd]",
+      leadLabel: "text-[#7a7c72]",
+      leadText: "text-[#5d5d56]",
+      hline: "border-dashed border-[#a9a89c]",
+      vline: "bg-[#a9a89c]",
+      icon: "border-[#bdb8a8] bg-[#f6f3ec] text-[#6d6e67]",
+      pillarText: "text-[#7a7c72]",
+      footer: "border-[#cfcabb] text-[#6d6e67]",
+      dash: "bg-[#8a8d82]",
+    },
   },
-  {
-    id: "coordinated",
+  coordinated: {
     label: "Building with NEBCO",
     kicker: "Construction delivery",
     heading: "One accountable construction team.",
@@ -27,22 +49,36 @@ const tabs = [
       "Agreed costs, specifications and recorded changes",
       "Site supervision, quality checks and progress updates",
     ],
+    boardTag: "Brought together",
+    leadLabel: "Your delivery lead",
+    leadName: "NEBCO Construction",
+    leadText: "One lead for the agreed construction works.",
+    result: "An agreed scope. A connected team.",
+    theme: {
+      board: "bg-[#262b25] text-white",
+      top: "text-[#d5c49e]",
+      lead: "bg-[#bd1f26]",
+      leadLabel: "text-white/85",
+      leadText: "text-white/90",
+      hline: "border-solid border-[#9c8a4f]",
+      vline: "bg-[#9c8a4f]",
+      icon: "border-[#9c8a4f] bg-[#262b25] text-[#d5c49e]",
+      pillarText: "text-[#d2cbbf]",
+      footer: "border-white/15 text-[#e6dfcf]",
+      dash: "bg-[#c51f2b]",
+    },
   },
-];
-
-const pillars = [
-  { icon: HardHat, title: "Site execution", text: "People & work sequence" },
-  { icon: PackageCheck, title: "Materials & trades", text: "Procurement & coordination" },
-  { icon: ClipboardCheck, title: "Quality & progress", text: "Checks & reporting" },
-];
+};
 
 const Foundation = () => {
   const [active, setActive] = useState("coordinated");
-  const current = tabs.find((tab) => tab.id === active);
+  const current = tabs[active];
+  const t = current.theme;
 
   return (
     <section
       id="about"
+      aria-labelledby="about-heading"
       className="border-y border-[#ddd3c0] bg-[#eee6d8] py-[72px] max-[700px]:py-[55px]"
     >
       <Container>
@@ -56,7 +92,10 @@ const Foundation = () => {
               </p>
             </div>
 
-            <h2 className="mt-7 text-[44px] font-normal leading-[1.17] tracking-[-0.06em] text-[#252623] max-[700px]:text-[34px]">
+            <h2
+              id="about-heading"
+              className="mt-7 text-[44px] font-normal leading-[1.17] tracking-[-0.06em] text-[#252623] max-[700px]:text-[34px]"
+            >
               Built on experience.
               <br />
               Focused on your future.
@@ -71,12 +110,15 @@ const Foundation = () => {
               An A-Class construction company bringing construction, development guidance and
               project partnerships together.
             </p>
-            <Link
-              to="/#about"
-              className="mt-5 inline-block text-[14px] font-medium text-[#c51f2b] underline-offset-4 hover:underline"
+            <a
+              href="https://nebco.com.np/"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex items-center gap-2 text-[14px] font-medium text-[#c51f2b] underline-offset-4 hover:underline"
             >
               More about NEBCO
-            </Link>
+              <ArrowRight className="size-4" />
+            </a>
           </div>
         </div>
 
@@ -86,14 +128,16 @@ const Foundation = () => {
             A clearer way to build.
           </p>
 
-          <div className="inline-flex border border-[#cfc6b4] bg-[#f3ede2]">
-            {tabs.map((tab) => (
+          <div role="tablist" className="inline-flex border border-[#cfc6b4] bg-[#f3ede2]">
+            {Object.entries(tabs).map(([id, tab]) => (
               <button
-                key={tab.id}
+                key={id}
                 type="button"
-                onClick={() => setActive(tab.id)}
+                role="tab"
+                aria-selected={active === id}
+                onClick={() => setActive(id)}
                 className={`h-[48px] px-[22px] text-[14px] font-medium transition-colors ${
-                  active === tab.id
+                  active === id
                     ? "bg-[#c51f2b] text-white"
                     : "text-[#62675b] hover:text-[#252623]"
                 }`}
@@ -129,31 +173,32 @@ const Foundation = () => {
 
             <Link
               to="/construction"
-              className="mt-8 inline-block text-[14.5px] font-medium text-[#c51f2b] underline-offset-4 hover:underline"
+              className="mt-8 inline-flex items-center gap-2 text-[14.5px] font-medium text-[#c51f2b] underline-offset-4 hover:underline"
             >
               Explore NEBCO Construction
+              <ArrowRight className="size-4" />
             </Link>
           </div>
 
           {/* Right panel */}
           <div className="min-w-0">
-            <div className="bg-[#262b25] text-white">
+            <div className={t.board}>
               {/* Top row */}
-              <div className="flex items-center justify-between px-7 py-[26px] text-[11px] uppercase leading-[1.4] tracking-[0.11em] text-[#d5c49e]">
+              <div
+                className={`flex items-center justify-between px-7 py-[26px] text-[11px] uppercase leading-[1.4] tracking-[0.11em] ${t.top}`}
+              >
                 <span>Your project</span>
                 <Building2 className="size-[18px]" />
-                <span>Brought together</span>
+                <span>{current.boardTag}</span>
               </div>
 
-              {/* Delivery lead band */}
-              <div className="bg-[#bd1f26] px-7 py-[25px]">
-                <span className="text-[12.5px] text-white/85">Your delivery lead</span>
+              {/* Lead band */}
+              <div className={`px-7 py-[25px] ${t.lead}`}>
+                <span className={`text-[12.5px] ${t.leadLabel}`}>{current.leadLabel}</span>
                 <strong className="mt-2 block text-[32px] font-normal leading-tight tracking-[-0.04em]">
-                  NEBCO Construction
+                  {current.leadName}
                 </strong>
-                <p className="mt-2 text-[13px] text-white/90">
-                  One lead for the agreed construction works.
-                </p>
+                <p className={`mt-2 text-[13px] ${t.leadText}`}>{current.leadText}</p>
               </div>
 
               {/* Pillars */}
@@ -161,7 +206,7 @@ const Foundation = () => {
                 {/* Horizontal connector */}
                 <span
                   aria-hidden="true"
-                  className="absolute left-[25px] top-0 h-px bg-[#9c8a4f] max-[700px]:hidden"
+                  className={`absolute left-[25px] top-0 border-t max-[700px]:hidden ${t.hline}`}
                   style={{ width: "calc((100% + 20px) * 2 / 3)" }}
                 />
 
@@ -171,17 +216,19 @@ const Foundation = () => {
                       {/* Vertical connector */}
                       <span
                         aria-hidden="true"
-                        className="absolute left-[25px] top-0 h-[30px] w-px bg-[#9c8a4f] max-[700px]:hidden"
+                        className={`absolute left-[25px] top-0 h-[30px] w-px max-[700px]:hidden ${t.vline}`}
                       />
 
-                      <span className="relative flex size-[50px] items-center justify-center rounded-full border border-[#9c8a4f] bg-[#262b25] text-[#d5c49e]">
+                      <span
+                        className={`relative flex size-[50px] items-center justify-center rounded-full border ${t.icon}`}
+                      >
                         <pillar.icon className="size-[22px]" strokeWidth={1.5} />
                       </span>
 
                       <h4 className="mt-[17px] text-[17px] font-normal leading-tight tracking-[-0.02em]">
                         {pillar.title}
                       </h4>
-                      <p className="mt-2 text-[14px] leading-[1.5] text-[#d2cbbf]">
+                      <p className={`mt-2 text-[14px] leading-[1.5] ${t.pillarText}`}>
                         {pillar.text}
                       </p>
                     </div>
@@ -190,9 +237,11 @@ const Foundation = () => {
               </div>
 
               {/* Footer line */}
-              <div className="mx-7 mt-[25px] flex items-center gap-3 border-t border-white/15 pb-5 pt-[18px] text-[13px] leading-[1.6] text-[#e6dfcf]">
-                <span aria-hidden="true" className="h-[2px] w-5 shrink-0 bg-[#c51f2b]" />
-                An agreed scope. A connected team.
+              <div
+                className={`mx-7 mt-[25px] flex items-center gap-3 border-t pb-5 pt-[18px] text-[13px] leading-[1.6] ${t.footer}`}
+              >
+                <span aria-hidden="true" className={`h-[2px] w-5 shrink-0 ${t.dash}`} />
+                {current.result}
               </div>
             </div>
 

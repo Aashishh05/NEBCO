@@ -23,7 +23,7 @@ const NavDropdown = () => {
 
   return (
     <div
-      className="relative"
+      style={{ position: "relative" }}
       onMouseEnter={show}
       onMouseLeave={hide}
       onFocus={show}
@@ -33,25 +33,19 @@ const NavDropdown = () => {
     >
       <button
         type="button"
-        className="flex items-center gap-1 py-2 text-[15px] font-semibold text-ink transition-colors hover:text-red"
+        className="business-menu-trigger"
         aria-expanded={open}
         aria-haspopup="true"
+        onClick={() => setOpen((value) => !value)}
       >
         Our businesses
-        <ChevronDown
-          className={`size-4 transition-transform ${open ? "rotate-180" : ""}`}
-        />
+        <ChevronDown className="size-3.5" />
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full w-[325px] border border-border bg-white py-2 shadow-lg">
+        <div className="business-menu-panel">
           {businessLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setOpen(false)}
-              className="block px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-muted hover:text-red"
-            >
+            <Link key={link.to} to={link.to} onClick={() => setOpen(false)}>
               {link.label}
             </Link>
           ))}

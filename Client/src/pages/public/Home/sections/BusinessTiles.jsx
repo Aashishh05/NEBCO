@@ -1,5 +1,3 @@
-import Container from "@/components/common/Container";
-import SectionHeading from "@/components/common/SectionHeading";
 import BusinessCard from "@/components/cards/BusinessCard";
 import { IMAGES } from "@/utils/constants";
 
@@ -12,13 +10,8 @@ const businesses = [
     audience: "For homes, businesses & developments",
     description:
       "From approved plans to a finished building. Or design and build with one coordinated team.",
-    accentColor: "#b82026",
     image: IMAGES.construction,
-    scopeBullets: [
-      "Design & Build",
-      "Civil works & finishing",
-      "Project & site management",
-    ],
+    scopeBullets: ["Design & Build", "Civil works & finishing", "Project & site management"],
   },
   {
     name: "NEBCO Consulting",
@@ -28,7 +21,6 @@ const businesses = [
     audience: "For landowners & project developers",
     description:
       "A clear development strategy, with the expertise and coordination to move your project forward.",
-    accentColor: "#232720",
     image: IMAGES.planning,
     scopeBullets: [
       "Concept, feasibility & planning",
@@ -44,7 +36,6 @@ const businesses = [
     audience: "For landowners, investors & partners",
     description:
       "Connecting landowners, investors, suppliers and buyers to create real estate projects together.",
-    accentColor: "#aa8c56",
     image: IMAGES.investments,
     scopeBullets: [
       "A platform for project partnerships",
@@ -56,32 +47,31 @@ const businesses = [
 
 const BusinessTiles = () => {
   return (
-    <section id="businesses" className="pb-[65px] pt-20 max-[700px]:pt-[60px]">
-      <Container>
-        <SectionHeading
-          eyebrow="Our businesses"
-          title={
-            <>
-              Three businesses.
-              <br />
-              One connected vision.
-            </>
-          }
-          description={
-            <>
-              Choose where you need us.
-              <br />
-              We'll help you move forward.
-            </>
-          }
-        />
-
-        <div className="grid grid-cols-3 gap-5 max-[960px]:gap-[13px] max-[700px]:grid-cols-1 max-[700px]:gap-[25px]">
-          {businesses.map((business) => (
-            <BusinessCard key={business.slug} {...business} />
-          ))}
+    <section id="businesses" className="section business-section container" aria-labelledby="businesses-heading">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">
+            <span />
+            Our businesses
+          </p>
+          <h2 id="businesses-heading">
+            Three businesses.
+            <br />
+            One connected vision.
+          </h2>
         </div>
-      </Container>
+        <p>
+          Choose where you need us.
+          <br />
+          We'll help you move forward.
+        </p>
+      </div>
+
+      <div className="business-grid">
+        {businesses.map((business) => (
+          <BusinessCard key={business.slug} {...business} />
+        ))}
+      </div>
     </section>
   );
 };
