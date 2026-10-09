@@ -1,8 +1,8 @@
-import CrudPage from "@/components/admin/CrudPage";
+import ResourceManager from "@/components/admin/ResourceManager";
 import { getAdminTeam, createMember, updateMember, deleteMember } from "@/api/team.api.js";
 
 const Team = () => (
-  <CrudPage
+  <ResourceManager
     title="Team"
     description="Team members shown on the About page."
     module="team"

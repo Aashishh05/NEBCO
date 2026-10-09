@@ -1,4 +1,4 @@
-import CrudPage from "@/components/admin/CrudPage";
+import ResourceManager from "@/components/admin/ResourceManager";
 import {
   getAdminTestimonials,
   createTestimonial,
@@ -7,7 +7,7 @@ import {
 } from "@/api/testimonials.api.js";
 
 const Testimonials = () => (
-  <CrudPage
+  <ResourceManager
     title="Testimonials"
     description="Client quotes shown on the website."
     module="testimonials"

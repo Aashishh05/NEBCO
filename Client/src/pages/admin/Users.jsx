@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CrudPage from "@/components/admin/CrudPage";
+import ResourceManager from "@/components/admin/ResourceManager";
 import { getUsers, createUser, updateUser, deleteUser } from "@/api/users.api.js";
 import { getRoles } from "@/api/roles.api.js";
 
@@ -15,7 +15,7 @@ const Users = () => {
   const roleOptions = roles.map((role) => ({ value: role._id, label: role.name }));
 
   return (
-    <CrudPage
+    <ResourceManager
       title="Users"
       description="Staff accounts and the role each one holds."
       module="users"

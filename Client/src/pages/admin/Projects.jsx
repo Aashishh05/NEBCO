@@ -1,4 +1,4 @@
-import CrudPage from "@/components/admin/CrudPage";
+import ResourceManager from "@/components/admin/ResourceManager";
 import {
   getAdminProjects,
   createProject,
@@ -8,7 +8,7 @@ import {
 import { PROJECT_CATEGORIES } from "@/utils/constants";
 
 const Projects = () => (
-  <CrudPage
+  <ResourceManager
     title="Projects"
     description="Portfolio projects shown on the website."
     module="projects"

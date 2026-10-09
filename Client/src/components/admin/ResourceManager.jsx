@@ -27,7 +27,7 @@ const emptyFromFields = (fields) => {
 const isRequired = (field, editing) =>
   Boolean(field.required) || Boolean(field.requiredOnCreate && !editing);
 
-const CrudPage = ({
+const ResourceManager = ({
   title,
   description,
   module,
@@ -349,4 +349,4 @@ const CrudPage = ({
   );
 };
 
-export default CrudPage;
+export default ResourceManager;
