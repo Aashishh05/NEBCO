@@ -6,7 +6,7 @@ const LoginPage = lazy(() => import("@/pages/admin/LoginPage.jsx"));
 const HomePage = lazy(() => import("@/pages/public/Home/index.jsx"));
 const ConstructionPage = lazy(() => import("@/pages/public/Construction/Construction.jsx"));
 const ConsultingPage = lazy(() => import("@/pages/public/Consulting/Consulting.jsx"));
-const InvestmentsPage = lazy(() => import("@/pages/public/Investments/index.jsx"));
+const InvestmentsPage = lazy(() => import("@/pages/public/Investments/Investments.jsx"));
 const AdminLayout = lazy(() => import("@/layouts/AdminLayout.jsx"));
 const PublicLayout = lazy(() => import("@/layouts/PublicLayout.jsx"));
 
