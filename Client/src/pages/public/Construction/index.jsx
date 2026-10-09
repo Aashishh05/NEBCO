@@ -38,7 +38,7 @@ const Construction = () => {
         title="From your plans to a place that lasts."
         description="Build with a team that connects design, budget and site execution. Whether you have a plot or approved drawings, we shape the right construction scope around your project."
         ctaLabel="Discuss your build"
-        image={IMAGES.hero}
+        image={IMAGES.construction}
       />
       <ScopeCards cards={cards} />
       <TalkCta />

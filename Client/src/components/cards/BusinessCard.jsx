@@ -17,7 +17,7 @@ const BusinessCard = ({ name, shortName, slug, tagline, audience, description, i
             className="relative block h-[222px] w-full"
           >
             <span
-              className={`relative block h-full w-full transition-transform duration-500 [transform-style:preserve-3d] ${
+              className={`relative block h-full w-full transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none ${
                 flipped
                   ? "[transform:rotateY(180deg)]"
                   : "group-hover:[transform:rotateY(180deg)]"

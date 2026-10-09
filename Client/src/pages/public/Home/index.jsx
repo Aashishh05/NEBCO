@@ -6,7 +6,6 @@ import Experience from "./sections/Experience";
 import Foundation from "./sections/Foundation";
 import Overseas from "./sections/Overseas";
 import ScheduleCta from "./sections/ScheduleCta";
-import Testimonials from "./sections/Testimonials";
 
 const Home = () => {
   return (
@@ -19,7 +18,6 @@ const Home = () => {
       <Foundation />
       <Overseas />
       <ScheduleCta />
-      <Testimonials />
     </>
   );
 };

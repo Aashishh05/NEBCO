@@ -13,7 +13,7 @@ const businesses = [
     description:
       "From approved plans to a finished building. Or design and build with one coordinated team.",
     accentColor: "#b82026",
-    image: IMAGES.hero,
+    image: IMAGES.construction,
     scopeBullets: [
       "Design & Build",
       "Civil works & finishing",

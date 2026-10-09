@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "@/components/common/Container";
 import { getFeaturedProjects } from "@/api/projects.api.js";
-import { IMAGES } from "@/utils/constants";
+import { PROJECT_IMAGES } from "@/utils/constants";
 
 const sectors = ["Residential", "Commercial", "Hospitality"];
 
@@ -13,7 +13,7 @@ const fallbackProjects = [
     category: "Residential",
     location: "Sukedhara",
     summary: "From NEBCO's project portfolio",
-    image: { url: IMAGES.hero },
+    image: { url: PROJECT_IMAGES.sukedhara },
   },
   {
     _id: "fallback-2",
@@ -21,7 +21,7 @@ const fallbackProjects = [
     category: "Commercial",
     location: "Nepalgunj",
     summary: "Project concept visualization",
-    image: { url: IMAGES.planning },
+    image: { url: PROJECT_IMAGES.khanal },
   },
   {
     _id: "fallback-3",
@@ -29,7 +29,7 @@ const fallbackProjects = [
     category: "Hospitality",
     location: "Thamel",
     summary: "Planning & design involvement",
-    image: { url: IMAGES.investments },
+    image: { url: PROJECT_IMAGES.hotelYatri },
   },
 ];
 
