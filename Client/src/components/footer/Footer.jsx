@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ArrowUp } from "lucide-react";
 import { getContact } from "@/api/contact.api.js";
 import { DEFAULT_CONTACT } from "@/utils/constants";
 import { openModal, closeMobileMenu } from "@/store/slices/uiSlice";

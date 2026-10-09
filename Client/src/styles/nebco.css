@@ -2830,3 +2830,155 @@ h3 {
     transition: none;
   }
 }
+
+/* ---------- Enquiry / appointment dialog ---------- */
+.enquiry-dialog {
+  max-height: none;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  gap: 12px;
+  width: calc(100% - 32px);
+  max-width: 610px;
+  padding: 30px;
+}
+
+.enquiry-dialog .eyebrow {
+  margin: 0;
+  font-size: 12px;
+}
+
+.enquiry-dialog [data-slot="dialog-title"] {
+  letter-spacing: -0.045em;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.enquiry-dialog [data-slot="dialog-description"] {
+  color: #69705f;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.enquiry-dialog [data-slot="dialog-close"] {
+  width: 44px;
+  height: 44px;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.enquiry-form {
+  flex-direction: column;
+  gap: 13px;
+  display: flex;
+}
+
+.enquiry-context {
+  color: #69715d;
+  background: #eaece3;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+
+.enquiry-context strong {
+  color: #333d29;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.form-row {
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  display: grid;
+}
+
+.enquiry-form label {
+  color: #434b3a;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+}
+
+.enquiry-form label > span {
+  font-size: 12px;
+  font-weight: 400;
+  display: contents;
+}
+
+.enquiry-form input,
+.enquiry-form textarea {
+  background: #fff;
+  min-height: 46px;
+  padding: 11px 12px;
+  font-family: inherit;
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid var(--border);
+  outline: none;
+}
+
+.enquiry-form input:focus,
+.enquiry-form textarea:focus {
+  border-color: var(--red);
+}
+
+.enquiry-form textarea {
+  resize: vertical;
+  min-height: 78px;
+}
+
+.form-note {
+  color: #6c7262;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.form-error {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.draft-ready {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 23px;
+  padding-top: 12px;
+  display: flex;
+}
+
+.draft-ready > svg {
+  color: var(--red);
+}
+
+.draft-ready p {
+  color: #69705f;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+@media (max-width: 700px) {
+  .enquiry-dialog {
+    gap: 14px;
+    padding: 32px 22px;
+  }
+  .enquiry-dialog [data-slot="dialog-title"] {
+    max-width: 290px;
+    font-size: 28px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .enquiry-form .button {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
