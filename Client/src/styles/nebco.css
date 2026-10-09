@@ -43,6 +43,13 @@ body {
   outline-offset: 5px;
 }
 
+/* Text fields show focus with their border colour, not the outline ring. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
 ::selection {
   background: var(--red);
   color: #fff;
@@ -2981,4 +2988,12 @@ h3 {
     justify-content: space-between;
     width: 100%;
   }
+}
+
+/* Admin tables: row hover */
+table tbody tr {
+  transition: background-color 0.15s;
+}
+table tbody tr:hover {
+  background: #f4f1ea;
 }

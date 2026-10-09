@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   activeModal: null,
-  sidebarOpen: false,
+  sidebarOpen: typeof window !== "undefined" ? window.innerWidth > 960 : true,
   mobileMenuOpen: false,
   error: null,
 };
