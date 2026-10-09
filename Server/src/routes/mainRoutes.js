@@ -31,6 +31,10 @@ router.use("/media", mediaRoute);
 router.use("/enquiries", enquiryRoute);
 router.use("/appointments", appointmentRoute);
 
+router.get("/", (req, res) => {
+  sendSuccess(res, { health: "/api/health" }, "NEBCO API is running");
+});
+
 router.get(
   "/health",
   asyncHandler(async (req, res) => {

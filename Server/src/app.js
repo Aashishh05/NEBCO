@@ -42,6 +42,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(mongoSanitize());
 app.use('/api', globalLimiter, mainRoutes);
+
+// Friendly root so opening the backend URL shows a clean response.
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'NEBCO API is running',
+    data: { health: '/api/health' },
+  });
+});
+
 app.use(notFound);
 app.use(errorHandler);
 
