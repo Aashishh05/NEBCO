@@ -44,7 +44,6 @@ const Navbar = () => {
             onClick={() => dispatch(openModal("enquiry"))}
           >
             Discuss your project
-            
           </button>
 
           <button

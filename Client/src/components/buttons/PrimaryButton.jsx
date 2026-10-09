@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 
 const PrimaryButton = ({
   children,
@@ -15,7 +14,6 @@ const PrimaryButton = ({
     return (
       <Link to={to} className={classes} {...props}>
         {children}
-        <ArrowRight />
       </Link>
     );
   }
@@ -23,7 +21,6 @@ const PrimaryButton = ({
   return (
     <button type={type} disabled={disabled} className={classes} {...props}>
       {children}
-      <ArrowRight />
     </button>
   );
 };

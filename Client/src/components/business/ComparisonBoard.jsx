@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Check, ArrowRight } from "lucide-react";
+import { Check } from "lucide-react";
 import { openModal } from "@/store/slices/uiSlice";
 import Container from "@/components/common/Container";
 
@@ -75,7 +75,6 @@ const ComparisonBoard = ({ eyebrow, lead, text, points = [], browse, note, ctaLa
               className="mt-5 inline-flex items-center gap-2 text-[13px] font-semibold text-red underline-offset-4 hover:underline"
             >
               {ctaLabel}
-              <ArrowRight className="size-4" />
             </button>
           </div>
         </div>

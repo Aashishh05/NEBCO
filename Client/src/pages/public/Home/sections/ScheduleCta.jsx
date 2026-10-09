@@ -12,17 +12,17 @@ const ScheduleCta = () => {
         <div>
           <p className="eyebrow">
             <span />
-            Let's talk about what comes next
+            Let’s talk about what comes next
           </p>
           <h2 id="schedule-heading">
-            Let's talk about
+            Let’s talk about
             <br />
             your <em>next project.</em>
           </h2>
           <p>
             A home, a development or a partnership.
             <br />
-            Let's understand what you have in mind.
+            Let’s understand what you have in mind.
           </p>
         </div>
 
@@ -39,7 +39,7 @@ const ScheduleCta = () => {
             Find a time to talk
           </PrimaryButton>
 
-          <span>In Nepal or overseas. We'll connect.</span>
+          <span>In Nepal or overseas. We’ll connect.</span>
         </div>
       </div>
     </section>

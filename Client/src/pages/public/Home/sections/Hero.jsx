@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { ArrowRight } from "lucide-react";
 import { openModal } from "@/store/slices/uiSlice";
 import { IMAGES } from "@/utils/constants";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
@@ -46,7 +45,6 @@ const Hero = () => {
           </PrimaryButton>
           <a className="text-link" href="#businesses">
             Explore NEBCO
-            <ArrowRight />
           </a>
         </div>
 

@@ -35,9 +35,31 @@ export const IMAGES = {
   kathmandu: "/images/final/kathmandu.webp",
 };
 
-// NEBCO's official project photographs (remote until approved local masters exist).
+// NEBCO's official project photographs (served locally from public/images/projects).
 export const PROJECT_IMAGES = {
-  sukedhara: "https://nebco.com.np/wp-content/uploads/2024/06/DSC01007-scaled.jpg",
-  khanal: "https://nebco.com.np/wp-content/uploads/2024/06/IMG_7544_11zon.jpg",
-  hotelYatri: "https://nebco.com.np/wp-content/uploads/2024/06/1-81_11zon.jpg",
+  sukedhara: "/images/projects/project-sukedhara.jpg",
+  khanal: "/images/projects/project-khanal.jpg",
+  hotelYatri: "/images/projects/project-hotel-yatri.jpg",
+};
+
+export const PROJECT_IMAGE_BY_SLUG = {
+  "sukedhara-private-house": PROJECT_IMAGES.sukedhara,
+  "khanal-commercial-building": PROJECT_IMAGES.khanal,
+  "hotel-yatri": PROJECT_IMAGES.hotelYatri,
+};
+
+// Homepage "Selected experience" copy (matches the reference site).
+export const PROJECT_COPY_BY_SLUG = {
+  "sukedhara-private-house": {
+    label: "Residential / Sukedhara",
+    summary: "From NEBCO’s project portfolio",
+  },
+  "khanal-commercial-building": {
+    label: "Commercial / Nepalgunj",
+    summary: "Project concept visualization",
+  },
+  "hotel-yatri": {
+    label: "Hospitality / Thamel",
+    summary: "Planning & design involvement",
+  },
 };

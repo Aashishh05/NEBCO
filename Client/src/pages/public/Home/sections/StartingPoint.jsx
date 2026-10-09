@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LandPlot, PencilRuler, FileCheck2, Handshake } from "lucide-react";
+import { LandPlot, PencilRuler, FileCheckCorner, Handshake } from "lucide-react";
 
 const options = [
   {
@@ -21,7 +21,7 @@ const options = [
     text: "Review your plans, scope and construction requirements.",
     label: "Construction delivery",
     to: "/construction#from-drawings",
-    icon: FileCheck2,
+    icon: FileCheckCorner,
   },
   {
     title: "Explore a project partnership",
@@ -47,7 +47,7 @@ const StartingPoint = () => {
           </h2>
           <p>
             Start with what you have in mind. <br />
-            We'll help you take the next step.
+            We’ll help you take the next step.
           </p>
         </div>
 

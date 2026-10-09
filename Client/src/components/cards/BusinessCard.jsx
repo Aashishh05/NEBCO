@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ArrowRight } from "lucide-react";
+import { Check } from "lucide-react";
 
 const BusinessCard = ({
   name,
@@ -54,10 +54,7 @@ const BusinessCard = ({
           <p className="business-audience">{audience}</p>
           <h3>{shortName}</h3>
           <p className="tile-description">{description}</p>
-          <span className="business-link">
-            Explore {shortName.toLowerCase()}
-            <ArrowRight />
-          </span>
+          <span className="business-link">Explore {shortName.toLowerCase()}</span>
         </Link>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { getFeaturedProjects } from "@/api/projects.api.js";
-import { PROJECT_IMAGES } from "@/utils/constants";
+import { PROJECT_IMAGES, PROJECT_IMAGE_BY_SLUG, PROJECT_COPY_BY_SLUG } from "@/utils/constants";
 
 const sectors = ["Residential", "Commercial", "Hospitality"];
 
@@ -11,7 +10,7 @@ const fallbackProjects = [
     title: "Sukedhara Private House",
     category: "Residential",
     location: "Sukedhara",
-    summary: "From NEBCO's project portfolio",
+    summary: "From NEBCO’s project portfolio",
     image: { url: PROJECT_IMAGES.sukedhara },
   },
   {
@@ -79,7 +78,6 @@ const Experience = () => {
           rel="noreferrer"
         >
           View our projects
-          <ArrowRight />
         </a>
       </div>
 
@@ -100,22 +98,30 @@ const Experience = () => {
                 rel="noreferrer"
               >
                 <div className="experience-photo">
-                  {project.image?.url && (
-                    <img
-                      src={project.image.url}
-                      alt={project.title}
-                      width="1200"
-                      height="900"
-                      loading="lazy"
-                    />
-                  )}
+                  {(() => {
+                    const src = project.image?.url || PROJECT_IMAGE_BY_SLUG[project.slug];
+                    return src ? (
+                      <img
+                        src={src}
+                        alt={project.title}
+                        width="1200"
+                        height="900"
+                        loading="lazy"
+                      />
+                    ) : null;
+                  })()}
                 </div>
                 <div className="experience-copy">
                   <p>
-                    {[project.category, project.location].filter(Boolean).join(" / ")}
+                    {PROJECT_COPY_BY_SLUG[project.slug]?.label ||
+                      [project.category, project.location].filter(Boolean).join(" / ")}
                   </p>
                   <h3>{project.title}</h3>
-                  {project.summary && <span>{project.summary}</span>}
+                  {(PROJECT_COPY_BY_SLUG[project.slug]?.summary || project.summary) && (
+                    <span>
+                      {PROJECT_COPY_BY_SLUG[project.slug]?.summary || project.summary}
+                    </span>
+                  )}
                 </div>
               </a>
             ))}

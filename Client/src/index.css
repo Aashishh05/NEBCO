@@ -1,8 +1,37 @@
 @import "tailwindcss";
 @import "./styles/nebco.css";
 
-/* NEBCO design tokens — palette and fonts from the spec.
-   Manrope loads from Google Fonts in index.html until local files are added. */
+/* Self-hosted Manrope (files in public/fonts). */
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-400.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-500.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-600.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope-800.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap;
+}
 
 @theme {
   --color-background: #faf9f6;

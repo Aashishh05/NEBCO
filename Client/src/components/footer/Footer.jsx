@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ArrowUp, ArrowRight } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { getContact } from "@/api/contact.api.js";
 import { DEFAULT_CONTACT } from "@/utils/constants";
 import { openModal, closeMobileMenu } from "@/store/slices/uiSlice";
@@ -44,7 +44,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-main">
           <div className="footer-brand-block">
-            <Link to="/" aria-label="NEBCO home">
+            <Link to="/" className="footer-logo-link" aria-label="NEBCO home">
               <span className="footer-logo-panel">
                 <img
                   src="/images/nebco-logo.png"
@@ -85,7 +85,7 @@ const Footer = () => {
           </div>
 
           <div className="footer-group footer-connect">
-            <h3>Let's connect</h3>
+            <h3>Let’s connect</h3>
             <a href={`mailto:${info.email}`}>{info.email}</a>
             {phones.map((phone) => (
               <a key={phone} href={`tel:${phone}`}>
@@ -95,7 +95,6 @@ const Footer = () => {
             <p>{info.address}</p>
             <button type="button" className="footer-cta" onClick={discuss}>
               Discuss your project
-              <ArrowRight className="size-4" />
             </button>
           </div>
         </div>
@@ -105,7 +104,7 @@ const Footer = () => {
           <button type="button">Enquiry privacy</button>
           <a href="#top">
             Back to top
-            <ArrowUp className="size-4" />
+           
           </a>
         </div>
       </div>
