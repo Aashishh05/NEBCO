@@ -17,10 +17,10 @@ const ContactForm = ({ mode = "enquiry", context = "", onClose }) => {
 
   const validate = () => {
     const next = {};
-    if (!values.name.trim()) next.name = "Your name is required";
+    if (values.name.trim().length < 2) next.name = "Please enter your name";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) next.email = "Enter a valid email";
     if (isCall && !values.detail.trim()) next.detail = "A preferred time is required";
-    if (values.brief.trim().length < 10) next.brief = "Tell us a little more";
+    if (values.brief.trim().length < 5) next.brief = "Tell us a little more";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -45,9 +45,25 @@ const ContactForm = ({ mode = "enquiry", context = "", onClose }) => {
       }
       setSent(true);
     } catch (err) {
-      setErrors({
-        form: err.response?.data?.message || "Something went wrong. Please try again.",
-      });
+      const next = {};
+      const apiErrors = err.response?.data?.errors;
+      if (Array.isArray(apiErrors)) {
+        const map = {
+          name: "name",
+          email: "email",
+          message: "brief",
+          preferredTime: "detail",
+          location: "detail",
+          website: null,
+        };
+        for (const item of apiErrors) {
+          const target = map[item.field];
+          if (target) next[target] = item.message;
+        }
+      }
+      next.form =
+        err.response?.data?.message || "Something went wrong. Please try again.";
+      setErrors(next);
     } finally {
       setSending(false);
     }
@@ -71,7 +87,7 @@ const ContactForm = ({ mode = "enquiry", context = "", onClose }) => {
   }
 
   return (
-    <form className="enquiry-form" onSubmit={onSubmit}>
+    <form className="enquiry-form" onSubmit={onSubmit} noValidate>
       {context && !isCall && (
         <p className="enquiry-context">
           Regarding <strong>{context}</strong>

@@ -91,11 +91,23 @@ const ResourceManager = ({
     const errors = {};
     for (const field of fields) {
       const value = values[field.name];
+      const text = String(value ?? "").trim();
       if (isRequired(field, editing) && (value === "" || value == null)) {
         errors[field.name] = `${field.label} is required`;
+        continue;
       }
-      if (typeof field.minLength === "number" && String(value || "").trim().length < field.minLength) {
+      if (text && typeof field.minLength === "number" && text.length < field.minLength) {
         errors[field.name] = `${field.label} must be at least ${field.minLength} characters`;
+      }
+      if (text && field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
+        errors[field.name] = "Enter a valid email";
+      }
+      if (
+        text &&
+        field.pattern &&
+        !new RegExp(field.pattern).test(text)
+      ) {
+        errors[field.name] = field.patternMessage || `${field.label} is not valid`;
       }
     }
     setFieldErrors(errors);
@@ -319,7 +331,7 @@ const ResourceManager = ({
                   ) : (
                     <input
                       {...common}
-                      type={field.type === "number" ? "number" : "text"}
+                      type={field.type === "number" ? "number" : field.type === "email" ? "email" : "text"}
                       className="h-11 w-full rounded-none border border-input bg-transparent px-3 text-sm outline-none focus-visible:border-ring"
                     />
                   )}

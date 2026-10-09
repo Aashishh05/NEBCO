@@ -28,7 +28,7 @@ const appointmentSchema = new mongoose.Schema(
 
     email: {
       type: String,
-      required: [true, "Email is required"],
+      default: "",
       lowercase: true,
       trim: true,
     },

@@ -12,7 +12,7 @@ const Team = () => (
     deleteFn={deleteMember}
     emptyText="No team members yet"
     fields={[
-      { name: "name", label: "Name", required: true },
+      { name: "name", label: "Name", required: true, minLength: 2 },
       { name: "position", label: "Position" },
       { name: "bio", label: "Bio", type: "textarea", rows: 3, full: true },
       { name: "photo", label: "Photo", type: "image" },

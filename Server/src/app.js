@@ -17,7 +17,13 @@ const allowedOrigins = (process.env.CLIENT_URL || "")
   .filter(Boolean);
 
 app.set('trust proxy', 1);
-app.use(helmet());
+app.use(
+  helmet({
+    // The API is consumed cross-origin by the React app.
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginOpenerPolicy: false,
+  }),
+);
 app.use(
   cors({
     origin(origin, callback) {

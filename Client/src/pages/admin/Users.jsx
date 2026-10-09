@@ -12,7 +12,7 @@ const Users = () => {
       .catch(() => setRoles([]));
   }, []);
 
-  const roleOptions = roles.map((role) => ({ value: role._id, label: role.name }));
+  const roleOptions = roles.map((role) => ({ value: role._id || role.id, label: role.name }));
 
   return (
     <ResourceManager
@@ -27,9 +27,9 @@ const Users = () => {
       deleteFn={deleteUser}
       emptyText="No users yet"
       fields={[
-        { name: "name", label: "Name", required: true },
-        { name: "email", label: "Email", required: true },
-        { name: "password", label: "Password", requiredOnCreate: true, placeholder: "min 6 characters" },
+        { name: "name", label: "Name", required: true, minLength: 2 },
+        { name: "email", label: "Email", required: true, type: "email" },
+        { name: "password", label: "Password", requiredOnCreate: true, minLength: 6, placeholder: "min 6 characters" },
         { name: "role", label: "Role", type: "select", required: true, options: roleOptions },
         { name: "isActive", label: "Active", type: "checkbox", defaultValue: true },
       ]}

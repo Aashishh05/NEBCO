@@ -18,8 +18,16 @@ const Projects = () => (
     deleteFn={deleteProject}
     emptyText="No projects yet"
     fields={[
-      { name: "title", label: "Title", required: true },
-      { name: "slug", label: "Slug", required: true, placeholder: "lowercase-with-hyphens" },
+      { name: "title", label: "Title", required: true, minLength: 1 },
+      {
+        name: "slug",
+        label: "Slug",
+        required: true,
+        minLength: 1,
+        placeholder: "lowercase-with-hyphens",
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+        patternMessage: "Slug can only contain lowercase letters, numbers and hyphens",
+      },
       { name: "category", label: "Category", type: "select", required: true, options: PROJECT_CATEGORIES },
       { name: "location", label: "Location" },
       { name: "year", label: "Year" },
