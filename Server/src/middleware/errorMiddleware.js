@@ -5,7 +5,7 @@ import { logger } from "../utils/logger.js";
 export const notFound = (req, res, next) =>
   next(new ApiError(404, `Route not found: ${req.originalUrl}`));
 
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, _next) => {
   let status = err.status || 500;
   let message = err.message || "Something went wrong";
   let errors = err.errors;

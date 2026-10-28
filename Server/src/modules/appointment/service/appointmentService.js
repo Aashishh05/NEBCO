@@ -1,4 +1,3 @@
-import Appointment from "../model/appointmentModel.js";
 import {
   createAppointment,
   findAll,
@@ -19,7 +18,7 @@ export const isBot = (data) => Boolean(data.website);
 export const submit = async (data, ip) => {
   if (isBot(data)) return null;
 
-  const { website, ...form } = data;
+  const { website: _website, ...form } = data;
   const appointment = await createAppointment({ ...form, ip });
 
   await sendEmail({

@@ -19,7 +19,7 @@ export const isBot = (data) => Boolean(data.website);
 export const submit = async (data, ip) => {
   if (isBot(data)) return null;
 
-  const { website, ...form } = data;
+  const { website: _website, ...form } = data;
   const enquiry = await createEnquiry({ ...form, ip });
 
   await sendEmail({
