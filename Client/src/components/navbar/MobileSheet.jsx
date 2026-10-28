@@ -80,7 +80,7 @@ const MobileSheet = () => {
           {sections.map((section) => {
             const isOpen = expanded === section.title;
             return (
-              <div key={section.title}>
+              <div key={section.title} className="mobile-nav-section">
                 <button
                   type="button"
                   onClick={() => setExpanded(isOpen ? "" : section.title)}
@@ -115,7 +115,7 @@ const MobileSheet = () => {
                       key={link.to}
                       to={link.to}
                       onClick={close}
-                      style={{ borderBottom: "1px solid var(--border)" }}
+                      className="mobile-accordion-link"
                     >
                       {link.label}
                     </Link>

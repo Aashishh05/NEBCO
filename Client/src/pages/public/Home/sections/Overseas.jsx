@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Video, Images, FileCheck2 } from "lucide-react";
+import { Video, Images, FileCheckCorner } from "lucide-react";
 import { openModal } from "@/store/slices/uiSlice";
 import { IMAGES } from "@/utils/constants";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
@@ -7,7 +7,7 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 const points = [
   { icon: Video, text: "Conversations around your time zone" },
   { icon: Images, text: "Site updates and progress reviews" },
-  { icon: FileCheck2, text: "Written approvals for key decisions" },
+  { icon: FileCheckCorner, text: "Written approvals for key decisions" },
 ];
 
 const Overseas = () => {
