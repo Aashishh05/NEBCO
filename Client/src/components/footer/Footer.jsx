@@ -30,7 +30,7 @@ const Footer = () => {
       .catch(() => setContact(null));
   }, []);
 
-  const info = { ...DEFAULT_CONTACT, ...(contact || {}) };
+  const info = { ...DEFAULT_CONTACT, ...contact };
   const phones = info.phones?.length ? info.phones : DEFAULT_CONTACT.phones;
 
   const discuss = () => {

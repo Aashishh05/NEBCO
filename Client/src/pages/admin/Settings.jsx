@@ -26,7 +26,7 @@ const Settings = () => {
   const setSocial = (key) => (event) =>
     setContact((current) => ({
       ...current,
-      socials: { ...(current.socials || {}), [key]: event.target.value },
+      socials: { ...current.socials, [key]: event.target.value },
     }));
 
   const saveContact = async (event) => {
